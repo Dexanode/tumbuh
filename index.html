@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tumbuh — Konsultan Bisnis untuk UMKM Indonesia</title>
+<meta name="description" content="Tim Tumbuh hadir sebagai mitra bisnis kamu — kasih analisis nyata, saran actionable, dan pendampingan langsung lewat WhatsApp.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=DM+Sans:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+/* ===================== RESET & BASE ===================== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: 'DM Sans', sans-serif; color: #0f1f05; background: #fff; line-height: 1.6; }
+img { max-width: 100%; display: block; }
+
+/* ===================== VARIABLES ===================== */
+:root {
+  --g50:  #f0f9e8;
+  --g100: #d6f0b8;
+  --g200: #b8e080;
+  --g400: #5a9e1a;
+  --g600: #3a7010;
+  --g800: #1e3f08;
+  --ink:  #0f1f05;
+  --muted: #5a6e48;
+  --border: #d8ecc0;
+  --ff: 'Sora', sans-serif;
+  --fb: 'DM Sans', sans-serif;
+  --radius: 12px;
+  --radius-lg: 20px;
+}
+
+/* ===================== UTILITIES ===================== */
+.container { max-width: 980px; margin: 0 auto; padding: 0 1.5rem; }
+.eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--g400); margin-bottom: .6rem; font-family: var(--ff); }
+.section-h { font-family: var(--ff); font-size: clamp(24px, 3.5vw, 36px); font-weight: 800; line-height: 1.15; letter-spacing: -0.5px; color: var(--ink); margin-bottom: .75rem; }
+.section-h em { color: var(--g400); font-style: normal; }
+.section-sub { font-size: 15px; color: var(--muted); line-height: 1.75; max-width: 500px; }
+.btn-primary { display: inline-flex; align-items: center; gap: 8px; background: var(--g600); color: #fff; padding: 13px 26px; border-radius: 99px; font-family: var(--ff); font-size: 15px; font-weight: 600; border: none; cursor: pointer; text-decoration: none; transition: background .2s; }
+.btn-primary:hover { background: var(--g800); }
+.btn-ghost { display: inline-flex; align-items: center; gap: 8px; background: transparent; color: var(--ink); padding: 13px 22px; border-radius: 99px; font-family: var(--ff); font-size: 15px; font-weight: 500; border: 1px solid var(--border); cursor: pointer; text-decoration: none; transition: background .2s; }
+.btn-ghost:hover { background: var(--g50); }
+
+/* ===================== NAVBAR ===================== */
+.nav { position: sticky; top: 0; z-index: 100; background: #fff; border-bottom: 1px solid var(--border); }
+.nav-inner { display: flex; align-items: center; justify-content: space-between; padding: 1rem 1.5rem; max-width: 980px; margin: 0 auto; }
+.nav-logo { font-family: var(--ff); font-weight: 800; font-size: 20px; color: var(--g600); display: flex; align-items: center; gap: 8px; text-decoration: none; }
+.nav-logo-icon { width: 28px; height: 28px; background: var(--g400); border-radius: 50% 50% 50% 0; display: flex; align-items: center; justify-content: center; }
+.nav-logo-icon svg { width: 14px; height: 14px; fill: #fff; }
+.nav-links { display: flex; gap: 1.5rem; }
+.nav-links a { font-size: 14px; color: var(--muted); text-decoration: none; font-family: var(--ff); transition: color .2s; }
+.nav-links a:hover { color: var(--ink); }
+.nav-cta { background: var(--g600); color: #fff; padding: 9px 20px; border-radius: 99px; font-family: var(--ff); font-size: 14px; font-weight: 600; border: none; cursor: pointer; transition: background .2s; }
+.nav-cta:hover { background: var(--g800); }
+@media (max-width: 600px) { .nav-links { display: none; } }
+
+/* ===================== HERO ===================== */
+.hero { background: var(--g50); overflow: hidden; }
+.hero-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: center; padding: 4rem 1.5rem 0; max-width: 980px; margin: 0 auto; }
+.hero-tag { display: inline-flex; align-items: center; gap: 6px; background: #fff; border: 1px solid #c8e8a0; padding: 5px 14px; border-radius: 99px; font-size: 12px; font-weight: 600; color: var(--g600); margin-bottom: 1.25rem; font-family: var(--ff); }
+.hero-h1 { font-family: var(--ff); font-size: clamp(28px, 4vw, 46px); font-weight: 800; line-height: 1.12; color: var(--ink); margin-bottom: 1rem; letter-spacing: -1.5px; }
+.hero-h1 span { color: var(--g400); }
+.hero-sub { font-size: 16px; line-height: 1.7; color: var(--muted); margin-bottom: 2rem; max-width: 400px; }
+.hero-actions { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+.hero-note { font-size: 12px; color: var(--muted); margin-top: 12px; }
+.hero-right { position: relative; align-self: flex-end; }
+.hero-img { width: 100%; max-width: 400px; margin-left: auto; background: var(--g100); border-radius: 20px 20px 0 0; overflow: hidden; }
+.hero-bubble { position: absolute; top: 20px; left: -20px; background: #fff; border-radius: 14px; padding: 10px 14px; border: 1px solid var(--border); box-shadow: 0 4px 16px rgba(0,0,0,0.06); }
+.hero-bubble-label { font-size: 11px; font-weight: 600; color: var(--g600); font-family: var(--ff); }
+.hero-bubble-num { font-size: 22px; font-weight: 800; color: var(--ink); font-family: var(--ff); line-height: 1.1; }
+.hero-bubble-sub { font-size: 11px; color: var(--muted); }
+.hero-bubble2 { position: absolute; bottom: 30px; right: 0; background: var(--g600); border-radius: 14px; padding: 10px 14px; color: #fff; }
+.hero-bubble2-t { font-size: 11px; font-weight: 600; font-family: var(--ff); }
+.hero-bubble2-n { font-size: 18px; font-weight: 800; font-family: var(--ff); }
+@media (max-width: 700px) {
+  .hero-inner { grid-template-columns: 1fr; }
+  .hero-right { display: none; }
+  .hero-h1 { font-size: 28px; }
+}
+
+/* ===================== TRUST BAR ===================== */
+.trust-bar { background: #fff; padding: 1.25rem 1.5rem; border-bottom: 1px solid var(--border); }
+.trust-inner { max-width: 980px; margin: 0 auto; display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; }
+.trust-label { font-size: 13px; color: var(--muted); font-family: var(--ff); flex-shrink: 0; }
+.trust-cities { display: flex; gap: 1.25rem; flex-wrap: wrap; }
+.trust-city { font-family: var(--ff); font-weight: 700; font-size: 14px; color: #ccc; }
+
+/* ===================== PAIN SECTION ===================== */
+.pain-section { padding: 5rem 0; }
+.pain-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
+.pain-list { list-style: none; margin-top: 1.75rem; display: flex; flex-direction: column; gap: 1.25rem; }
+.pain-item { display: flex; gap: 14px; align-items: flex-start; }
+.pain-icon { width: 42px; height: 42px; border-radius: 12px; background: var(--g50); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 20px; }
+.pain-title { font-size: 14px; font-weight: 600; color: var(--ink); font-family: var(--ff); margin-bottom: 3px; }
+.pain-desc { font-size: 13px; color: var(--muted); line-height: 1.65; }
+@media (max-width: 700px) { .pain-grid { grid-template-columns: 1fr; } }
+
+/* ===================== FEATURES ===================== */
+.feat-section { background: var(--g50); padding: 5rem 0; }
+.feat-header { text-align: center; margin-bottom: 2.5rem; }
+.feat-header .section-sub { margin: 0 auto; }
+.feat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 16px; margin-top: 2.5rem; }
+.feat-card { background: #fff; border-radius: var(--radius-lg); padding: 1.5rem; border: 1px solid var(--border); }
+.feat-card-icon { width: 44px; height: 44px; border-radius: 12px; margin-bottom: 1rem; display: flex; align-items: center; justify-content: center; font-size: 22px; }
+.feat-card-icon.g { background: var(--g100); }
+.feat-card-icon.y { background: #fef3d0; }
+.feat-card-icon.b { background: #ddf0fc; }
+.feat-card-icon.o { background: #fde8e0; }
+.feat-card-title { font-size: 15px; font-weight: 700; font-family: var(--ff); color: var(--ink); margin-bottom: 6px; }
+.feat-card-desc { font-size: 13px; color: var(--muted); line-height: 1.65; }
+
+/* ===================== DARK BANNER ===================== */
+.banner { background: var(--g800); padding: 4rem 0; }
+.banner-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; align-items: center; }
+.banner-h { font-family: var(--ff); font-size: clamp(22px, 3vw, 34px); font-weight: 800; color: #fff; line-height: 1.2; letter-spacing: -0.5px; }
+.banner-h em { color: #a8dc60; font-style: normal; }
+.banner-sub { font-size: 14px; color: rgba(255,255,255,0.6); margin-top: .5rem; line-height: 1.6; }
+.banner-stats { display: flex; flex-direction: column; gap: 14px; }
+.banner-stat { background: rgba(255,255,255,0.08); border-radius: 14px; padding: 1rem 1.25rem; border: 1px solid rgba(255,255,255,0.1); }
+.banner-stat-num { font-family: var(--ff); font-size: 26px; font-weight: 800; color: #a8dc60; }
+.banner-stat-label { font-size: 13px; color: rgba(255,255,255,0.6); margin-top: 2px; }
+@media (max-width: 700px) { .banner-inner { grid-template-columns: 1fr; } }
+
+/* ===================== HOW IT WORKS ===================== */
+.how-section { padding: 5rem 0; }
+.how-steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; margin-top: 2.5rem; }
+.how-step { padding: 1.25rem; position: relative; }
+.how-step:not(:last-child)::after { content: '→'; position: absolute; right: -8px; top: 1.5rem; font-size: 20px; color: var(--g200); font-weight: bold; }
+.step-num { width: 36px; height: 36px; background: var(--g600); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--ff); font-size: 14px; font-weight: 700; color: #fff; margin-bottom: 1rem; }
+.step-title { font-size: 15px; font-weight: 700; font-family: var(--ff); color: var(--ink); margin-bottom: 6px; }
+.step-desc { font-size: 13px; color: var(--muted); line-height: 1.65; }
+@media (max-width: 700px) {
+  .how-steps { grid-template-columns: 1fr 1fr; }
+  .how-step:nth-child(2)::after { display: none; }
+}
+
+/* ===================== TESTIMONIALS ===================== */
+.testi-section { background: var(--g50); padding: 5rem 0; }
+.testi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin-top: 2.5rem; }
+.testi-card { background: #fff; border-radius: var(--radius-lg); padding: 1.5rem; border: 1px solid var(--border); }
+.testi-stars { color: #f59e0b; font-size: 13px; margin-bottom: .75rem; letter-spacing: 1px; }
+.testi-q { font-size: 14px; line-height: 1.75; color: var(--ink); margin-bottom: 1rem; font-style: italic; }
+.testi-author { display: flex; align-items: center; gap: 10px; }
+.testi-av { width: 38px; height: 38px; border-radius: 50%; background: var(--g100); display: flex; align-items: center; justify-content: center; font-family: var(--ff); font-size: 13px; font-weight: 700; color: var(--g600); flex-shrink: 0; }
+.testi-name { font-size: 13px; font-weight: 600; color: var(--ink); font-family: var(--ff); }
+.testi-biz { font-size: 12px; color: var(--muted); }
+
+/* ===================== PRICING ===================== */
+.price-section { padding: 5rem 0; }
+.price-header { text-align: center; }
+.price-cards { display: flex; gap: 20px; justify-content: center; margin-top: 2.5rem; flex-wrap: wrap; }
+.price-card { background: #fff; border-radius: var(--radius-lg); padding: 2rem; width: 250px; border: 1px solid var(--border); }
+.price-card.hot { border: 2px solid var(--g400); background: var(--g50); }
+.price-badge { display: inline-block; background: var(--g400); color: #fff; font-size: 11px; font-weight: 700; padding: 4px 12px; border-radius: 99px; margin-bottom: .75rem; font-family: var(--ff); }
+.price-tier { font-size: 13px; color: var(--muted); margin-bottom: 4px; font-family: var(--ff); }
+.price-amount { font-family: var(--ff); font-size: 32px; font-weight: 800; color: var(--ink); line-height: 1; }
+.price-period { font-size: 12px; color: var(--muted); margin-bottom: 1.25rem; }
+.price-feats { list-style: none; margin-bottom: 1.5rem; display: flex; flex-direction: column; gap: 9px; }
+.price-feats li { font-size: 13px; color: var(--muted); display: flex; align-items: flex-start; gap: 8px; line-height: 1.5; }
+.price-feats li::before { content: '✓'; color: var(--g400); font-weight: 700; flex-shrink: 0; }
+.price-btn { width: 100%; padding: 11px; border-radius: 99px; font-family: var(--ff); font-size: 14px; font-weight: 600; cursor: pointer; border: 1.5px solid var(--g400); color: var(--g600); background: transparent; transition: background .2s; }
+.price-btn:hover { background: var(--g50); }
+.price-btn.solid { background: var(--g600); color: #fff; border-color: var(--g600); }
+.price-btn.solid:hover { background: var(--g800); }
+
+/* ===================== FORM CTA SECTION ===================== */
+.form-section { background: var(--g600); padding: 5rem 0; }
+.form-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; }
+.form-left-h { font-family: var(--ff); font-size: clamp(22px, 3vw, 34px); font-weight: 800; color: #fff; line-height: 1.2; letter-spacing: -0.5px; margin-bottom: .75rem; }
+.form-left-h em { color: #c8f080; font-style: normal; }
+.form-left-sub { font-size: 15px; color: rgba(255,255,255,0.7); line-height: 1.7; }
+.form-checklist { margin-top: 1.5rem; display: flex; flex-direction: column; gap: 10px; }
+.form-check { display: flex; align-items: center; gap: 10px; font-size: 14px; color: rgba(255,255,255,0.8); }
+.form-check-icon { color: #c8f080; font-weight: 700; }
+@media (max-width: 700px) {
+  .form-inner { grid-template-columns: 1fr; }
+  .form-left { text-align: center; }
+  .form-checklist { align-items: center; }
+}
+
+/* ===================== FORM CARD ===================== */
+.form-card { background: #fff; border-radius: var(--radius-lg); padding: 1.75rem; }
+.form-progress { height: 4px; background: #e8f2d8; border-radius: 99px; margin-bottom: 1.5rem; overflow: hidden; }
+.form-progress-fill { height: 100%; background: var(--g400); border-radius: 99px; transition: width .35s ease; }
+.form-step-label { font-size: 11px; color: var(--muted); margin-bottom: .4rem; font-family: var(--ff); }
+.form-question { font-family: var(--ff); font-size: 16px; font-weight: 700; color: var(--ink); margin-bottom: 1.25rem; line-height: 1.4; }
+.form-opts { display: flex; flex-direction: column; gap: 8px; margin-bottom: 1.25rem; }
+.form-opt { display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: 12px; border: 1px solid #dde8cc; cursor: pointer; font-size: 13px; color: var(--ink); background: #fff; font-family: var(--fb); text-align: left; transition: border-color .15s, background .15s; width: 100%; }
+.form-opt:hover { border-color: var(--g400); background: var(--g50); }
+.form-opt.sel { border-color: var(--g600); background: var(--g50); color: var(--g600); font-weight: 500; }
+.form-opt-dot { width: 16px; height: 16px; border-radius: 50%; border: 1.5px solid #ccc; flex-shrink: 0; transition: all .15s; }
+.form-opt.sel .form-opt-dot { background: var(--g600); border-color: var(--g600); }
+.form-input { width: 100%; padding: 11px 14px; border: 1px solid #dde8cc; border-radius: 12px; font-family: var(--fb); font-size: 14px; color: var(--ink); background: #fff; margin-bottom: .5rem; outline: none; transition: border-color .15s; }
+.form-input:focus { border-color: var(--g400); }
+.form-hint { font-size: 11px; color: var(--muted); margin-bottom: 1.25rem; }
+.form-btn-next { width: 100%; padding: 12px; background: var(--g600); color: #fff; border: none; border-radius: 99px; font-family: var(--ff); font-size: 14px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 7px; transition: background .2s; }
+.form-btn-next:hover:not(:disabled) { background: var(--g800); }
+.form-btn-next:disabled { opacity: .5; cursor: not-allowed; }
+.form-btn-back { background: none; border: none; font-size: 12px; color: var(--muted); cursor: pointer; margin-top: 10px; font-family: var(--fb); display: block; }
+.form-btn-back:hover { color: var(--ink); }
+.form-error { font-size: 13px; color: #c0392b; background: #fde8e0; border-radius: 8px; padding: 8px 12px; margin-bottom: 12px; display: none; }
+
+/* Loading state */
+.form-loading { text-align: center; padding: 2rem 1rem; }
+.form-loading-spinner { width: 40px; height: 40px; border: 3px solid var(--g100); border-top-color: var(--g600); border-radius: 50%; animation: spin .8s linear infinite; margin: 0 auto 1rem; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.form-loading-texts { font-size: 14px; color: var(--muted); }
+
+/* Success state */
+.form-success { text-align: center; padding: 1.5rem 1rem; }
+.form-success-icon { font-size: 48px; margin-bottom: 1rem; }
+.form-success-h { font-family: var(--ff); font-size: 18px; font-weight: 700; color: var(--ink); margin-bottom: .5rem; }
+.form-success-p { font-size: 13px; color: var(--muted); line-height: 1.65; }
+
+/* ===================== FOOTER ===================== */
+.footer { background: var(--ink); padding: 2rem 1.5rem; }
+.footer-inner { max-width: 980px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: gap; gap: 1rem; }
+.footer-logo { font-family: var(--ff); font-weight: 800; font-size: 18px; color: #a8dc60; }
+.footer-copy { font-size: 12px; color: rgba(255,255,255,0.4); }
+</style>
+</head>
+<body>
+
+<!-- ===================== NAVBAR ===================== -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">
+      <div class="nav-logo-icon">
+        <svg viewBox="0 0 24 24"><path d="M17 8C8 10 5.9 16.17 3.82 21.34L5.71 22l1-2.3A4.49 4.49 0 008 20C19 20 22 3 22 3c-1 2-8 2-8 2"/></svg>
+      </div>
+      Tumbuh
+    </a>
+    <div class="nav-links">
+      <a href="#how">Cara Kerja</a>
+      <a href="#harga">Harga</a>
+      <a href="#testimoni">Cerita Sukses</a>
+    </div>
+    <button class="nav-cta" onclick="scrollToForm()">Mulai Gratis →</button>
+  </div>
+</nav>
+
+<!-- ===================== HERO ===================== -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-left">
+      <div class="hero-tag">🌱 Khusus untuk UMKM Indonesia</div>
+      <h1 class="hero-h1">
+        Bisnis kamu berhak untuk<br>
+        <span>tumbuh lebih besar.</span>
+      </h1>
+      <p class="hero-sub">
+        Tim Tumbuh hadir sebagai mitra bisnis kamu — kasih analisis nyata, saran actionable, dan pendampingan langsung lewat WhatsApp setiap saat.
+      </p>
+      <div class="hero-actions">
+        <button class="btn-primary" onclick="scrollToForm()">Ceritain bisnis kamu →</button>
+        <a href="#how" class="btn-ghost">Lihat cara kerjanya</a>
+      </div>
+      <p class="hero-note">✓ Gratis 7 hari &nbsp;·&nbsp; ✓ Tanpa kartu kredit &nbsp;·&nbsp; ✓ Langsung via WhatsApp</p>
+    </div>
+    <div class="hero-right">
+      <div class="hero-bubble">
+        <div class="hero-bubble-label">UMKM Terbantu</div>
+        <div class="hero-bubble-num">2.400+</div>
+        <div class="hero-bubble-sub">di 38 kota Indonesia</div>
+      </div>
+      <div class="hero-img">
+        <svg viewBox="0 0 400 320" xmlns="http://www.w3.org/2000/svg">
+          <rect width="400" height="320" fill="#d6f0b8"/>
+          <rect x="40" y="60" width="140" height="200" rx="16" fill="#fff" stroke="#b0d880" stroke-width="1.5"/>
+          <rect x="60" y="85" width="100" height="10" rx="5" fill="#5a9e1a" opacity=".4"/>
+          <rect x="60" y="102" width="72" height="8" rx="4" fill="#5a9e1a" opacity=".2"/>
+          <rect x="60" y="116" width="86" height="8" rx="4" fill="#5a9e1a" opacity=".2"/>
+          <rect x="60" y="135" width="100" height="42" rx="10" fill="#3a7010"/>
+          <text x="110" y="161" text-anchor="middle" font-family="Sora,sans-serif" font-size="12" font-weight="700" fill="#fff">Konsultasi →</text>
+          <rect x="210" y="60" width="150" height="100" rx="16" fill="#fff" stroke="#b0d880" stroke-width="1.5"/>
+          <circle cx="240" cy="95" r="18" fill="#d6f0b8"/>
+          <text x="240" y="100" text-anchor="middle" font-family="Sora,sans-serif" font-size="12" font-weight="700" fill="#3a7010">SR</text>
+          <rect x="268" y="80" width="72" height="9" rx="4.5" fill="#3a7010" opacity=".5"/>
+          <rect x="268" y="96" width="54" height="7" rx="3.5" fill="#3a7010" opacity=".25"/>
+          <rect x="268" y="110" width="62" height="7" rx="3.5" fill="#3a7010" opacity=".25"/>
+          <rect x="210" y="178" width="150" height="60" rx="16" fill="#3a7010"/>
+          <text x="285" y="200" text-anchor="middle" font-family="Sora,sans-serif" font-size="10" font-weight="600" fill="#c8f080">OMZET MINGGU INI</text>
+          <text x="285" y="226" text-anchor="middle" font-family="Sora,sans-serif" font-size="24" font-weight="800" fill="#fff">+38%</text>
+        </svg>
+      </div>
+      <div class="hero-bubble2">
+        <div class="hero-bubble2-t">Rating Kepuasan</div>
+        <div class="hero-bubble2-n">⭐ 4.9/5</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== TRUST BAR ===================== -->
+<div class="trust-bar">
+  <div class="trust-inner">
+    <span class="trust-label">Dipercaya pelaku UMKM dari</span>
+    <div class="trust-cities">
+      <span class="trust-city">Jakarta</span>
+      <span class="trust-city">Surabaya</span>
+      <span class="trust-city">Bandung</span>
+      <span class="trust-city">Medan</span>
+      <span class="trust-city">Makassar</span>
+      <span class="trust-city">Yogyakarta</span>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== PAIN SECTION ===================== -->
+<section class="pain-section">
+  <div class="container">
+    <div class="pain-grid">
+      <div>
+        <p class="eyebrow">Untuk siapa</p>
+        <h2 class="section-h">Kamu udah kerja keras.<br>Saatnya kerja <em>lebih cerdas.</em></h2>
+        <p class="section-sub">Puluhan juta UMKM Indonesia berjuang tanpa mentor, tanpa tim, tanpa data. Tumbuh hadir buat ngubah itu.</p>
+        <ul class="pain-list">
+          <li class="pain-item">
+            <div class="pain-icon">😓</div>
+            <div>
+              <div class="pain-title">Ngerjain semua sendiri</div>
+              <div class="pain-desc">Owner jadi admin, kasir, marketing, sekaligus kurir. Nggak sempet mikir strategi.</div>
+            </div>
+          </li>
+          <li class="pain-item">
+            <div class="pain-icon">💸</div>
+            <div>
+              <div class="pain-title">Konsultan terlalu mahal</div>
+              <div class="pain-desc">Bayar jutaan, dapat saran generik yang nggak cocok sama kondisi usaha kecil.</div>
+            </div>
+          </li>
+          <li class="pain-item">
+            <div class="pain-icon">📉</div>
+            <div>
+              <div class="pain-title">Omzet stuck di angka yang sama</div>
+              <div class="pain-desc">Udah coba banyak cara, tapi nggak tau kenapa bisnis nggak mau tumbuh.</div>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <p class="eyebrow">Solusi Tumbuh</p>
+        <h2 class="section-h">Satu platform,<br><em>semua yang kamu butuhkan.</em></h2>
+        <p class="section-sub">Tim Tumbuh memahami konteks UMKM lokal — dari warung makan di Surabaya sampai toko online di Bandung.</p>
+        <ul class="pain-list">
+          <li class="pain-item">
+            <div class="pain-icon" style="background:#ddf0fc;border-color:#b0d8f0;">💬</div>
+            <div>
+              <div class="pain-title">Konsultasi kapan saja via WhatsApp</div>
+              <div class="pain-desc">Nggak perlu appointment, nggak perlu ke kantor. Chat langsung, dapat jawaban cepat.</div>
+            </div>
+          </li>
+          <li class="pain-item">
+            <div class="pain-icon" style="background:#fef3d0;border-color:#f9e090;">🧠</div>
+            <div>
+              <div class="pain-title">Tim yang ingat bisnis kamu</div>
+              <div class="pain-desc">Setiap sesi nyambung. Nggak perlu cerita ulang dari awal setiap kali ngobrol.</div>
+            </div>
+          </li>
+          <li class="pain-item">
+            <div class="pain-icon" style="background:#fde8e0;border-color:#f9c4b0;">📊</div>
+            <div>
+              <div class="pain-title">Saran spesifik, bukan template</div>
+              <div class="pain-desc">Rekomendasi disesuaikan sama jenis usaha, kondisi pasar, dan tujuan kamu.</div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FEATURES / TIM ===================== -->
+<section class="feat-section">
+  <div class="container">
+    <div class="feat-header">
+      <p class="eyebrow">Tim Spesialis</p>
+      <h2 class="section-h" style="text-align:center">Setiap bisnis punya <em>konsultan yang tepat.</em></h2>
+    </div>
+    <div class="feat-grid">
+      <div class="feat-card">
+        <div class="feat-card-icon g">🍳</div>
+        <div class="feat-card-title">Rina — F&B Specialist</div>
+        <div class="feat-card-desc">Ahli kuliner, frozen food, katering & warung. Paham margin F&B, pricing, dan cara masuk marketplace makanan.</div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-card-icon y">👗</div>
+        <div class="feat-card-title">Dinda — Fashion & Craft</div>
+        <div class="feat-card-desc">Spesialis fashion lokal, handmade, dan produk kreatif. Dari branding sampai strategi Shopee & TikTok Shop.</div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-card-icon b">🔧</div>
+        <div class="feat-card-title">Budi — Jasa & Servis</div>
+        <div class="feat-card-desc">Konsultan untuk salon, bengkel, laundry, les privat. Paham cara dapetin pelanggan tetap dan pricing jasa.</div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-card-icon o">📦</div>
+        <div class="feat-card-title">Hendra — Produk & Retail</div>
+        <div class="feat-card-desc">Spesialis produk fisik dan toko retail. Paham supply chain, manajemen stok, dan strategi reseller.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== DARK BANNER ===================== -->
+<section class="banner">
+  <div class="container">
+    <div class="banner-inner">
+      <div>
+        <h2 class="banner-h">Lebih dari 2.400 UMKM sudah<br><em>merasakan perbedaannya.</em></h2>
+        <p class="banner-sub">Dari warung kecil sampai usaha yang sudah jalan bertahun-tahun — semua bisa tumbuh dengan pendampingan yang tepat.</p>
+        <button class="btn-primary" style="margin-top:1.5rem;background:#a8dc60;color:#1e3f08;" onclick="scrollToForm()">Gabung sekarang →</button>
+      </div>
+      <div class="banner-stats">
+        <div class="banner-stat">
+          <div class="banner-stat-num">4.9 / 5</div>
+          <div class="banner-stat-label">Rating rata-rata dari member aktif</div>
+        </div>
+        <div class="banner-stat">
+          <div class="banner-stat-num">38 kota</div>
+          <div class="banner-stat-label">Jangkauan di seluruh Indonesia</div>
+        </div>
+        <div class="banner-stat">
+          <div class="banner-stat-num">Rp 79rb / bln</div>
+          <div class="banner-stat-label">Kurang dari harga makan siang seminggu</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== HOW IT WORKS ===================== -->
+<section class="how-section" id="how">
+  <div class="container">
+    <p class="eyebrow">Cara Kerja</p>
+    <h2 class="section-h">Dari cerita ke solusi<br><em>dalam hitungan menit.</em></h2>
+    <div class="how-steps">
+      <div class="how-step">
+        <div class="step-num">1</div>
+        <div class="step-title">Ceritain bisnis kamu</div>
+        <div class="step-desc">Isi form singkat — jenis usaha, tantangan terbesar, dan nomor WhatsApp kamu. Cuma 2 menit.</div>
+      </div>
+      <div class="how-step">
+        <div class="step-num">2</div>
+        <div class="step-title">Tim menganalisis</div>
+        <div class="step-desc">Tim kami baca semua yang kamu ceritain dan susun analisis yang spesifik — bukan template generik.</div>
+      </div>
+      <div class="how-step">
+        <div class="step-num">3</div>
+        <div class="step-title">Dapat insight di WA</div>
+        <div class="step-desc">Dalam 5 menit, kamu dapat pesan langsung ke WhatsApp berisi insight dan rekomendasi actionable.</div>
+      </div>
+      <div class="how-step">
+        <div class="step-num">4</div>
+        <div class="step-title">Tumbuh bareng kami</div>
+        <div class="step-desc">Lanjut konsultasi kapan saja. Tim kami check-in rutin dan tracking progress bisnis kamu.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== TESTIMONIALS ===================== -->
+<section class="testi-section" id="testimoni">
+  <div class="container">
+    <p class="eyebrow">Cerita Nyata</p>
+    <h2 class="section-h">Mereka sudah <em>merasakan manfaatnya.</em></h2>
+    <div class="testi-grid">
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-q">"Analisis dari Tim Tumbuh beneran ngena. Mereka tau persis di mana masalah pricing frozen food gue. Sekarang margin naik 40% dalam 2 bulan."</p>
+        <div class="testi-author">
+          <div class="testi-av">SR</div>
+          <div><div class="testi-name">Sari Rahayu</div><div class="testi-biz">Frozen food, Surabaya</div></div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-q">"Tim Tumbuh paling ngerti kondisi UMKM kecil kayak gue. Nggak ngerasa diguruin, malah kayak ngobrol sama temen yang emang jago bisnis."</p>
+        <div class="testi-author">
+          <div class="testi-av">AF</div>
+          <div><div class="testi-name">Ahmad Fauzi</div><div class="testi-biz">Bengkel motor, Bandung</div></div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-q">"Yang bikin gue stay adalah mereka inget semua detail bisnis gue. Konsultasinya selalu nyambung, kayak punya business partner beneran."</p>
+        <div class="testi-author">
+          <div class="testi-av">DW</div>
+          <div><div class="testi-name">Dewi Wulandari</div><div class="testi-biz">Toko baju online, Jakarta</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== PRICING ===================== -->
+<section class="price-section" id="harga">
+  <div class="container">
+    <div class="price-header">
+      <p class="eyebrow">Harga</p>
+      <h2 class="section-h">Investasi terjangkau<br><em>untuk bisnis yang tumbuh.</em></h2>
+    </div>
+    <div class="price-cards">
+      <div class="price-card">
+        <div class="price-tier">Gratis</div>
+        <div class="price-amount">Rp 0</div>
+        <div class="price-period">7 hari pertama</div>
+        <ul class="price-feats">
+          <li>Analisis bisnis awal</li>
+          <li>Konsultasi via WhatsApp</li>
+          <li>1 rekomendasi spesifik</li>
+        </ul>
+        <button class="price-btn" onclick="scrollToForm()">Coba gratis</button>
+      </div>
+      <div class="price-card hot">
+        <div class="price-badge">Paling populer</div>
+        <div class="price-tier">Member</div>
+        <div class="price-amount">Rp 79.000</div>
+        <div class="price-period">per bulan · bisa cancel kapan saja</div>
+        <ul class="price-feats">
+          <li>Konsultasi unlimited</li>
+          <li>Weekly check-in dari tim</li>
+          <li>Memori bisnis tersimpan</li>
+          <li>Insight mingguan</li>
+          <li>Akses semua spesialis</li>
+        </ul>
+        <button class="price-btn solid" onclick="scrollToForm()">Mulai 7 hari gratis →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FORM CTA ===================== -->
+<section class="form-section" id="form-section">
+  <div class="container">
+    <div class="form-inner">
+      <div class="form-left">
+        <p class="eyebrow" style="color:#c8f080">Mulai Sekarang</p>
+        <h2 class="form-left-h">Yuk, <em>ceritain bisnis kamu.</em></h2>
+        <p class="form-left-sub">Gratis. Tanpa kartu kredit. Tim kami kirim analisis ke WhatsApp kamu dalam 5 menit.</p>
+        <div class="form-checklist">
+          <div class="form-check"><span class="form-check-icon">✓</span> Analisis spesifik, bukan template</div>
+          <div class="form-check"><span class="form-check-icon">✓</span> Langsung via WhatsApp yang kamu pakai</div>
+          <div class="form-check"><span class="form-check-icon">✓</span> Tim yang ngerti kondisi UMKM Indonesia</div>
+        </div>
+      </div>
+      <div>
+        <div class="form-card" id="form-card">
+          <!-- Form diisi oleh JS -->
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FOOTER ===================== -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-logo">🌱 Tumbuh</div>
+    <div class="footer-copy">© 2025 Tumbuh. Konsultan bisnis untuk UMKM Indonesia.</div>
+  </div>
+</footer>
+
+<!-- ===================== JAVASCRIPT ===================== -->
+<script>
+// ============================================================
+// KONFIGURASI — GANTI INI SETELAH SETUP BACKEND
+// ============================================================
+const APPS_SCRIPT_URL = "GANTI_DENGAN_URL_GOOGLE_APPS_SCRIPT_KAMU";
+
+// ============================================================
+// DATA FORM
+// ============================================================
+const QUESTIONS = [
+  {
+    q: "Bisnis kamu jualan apa?",
+    opts: ["Makanan & Minuman","Fashion & Pakaian","Jasa & Servis","Produk Rumahan","Lainnya"]
+  },
+  {
+    q: "Sudah jalan berapa lama?",
+    opts: ["Baru mulai (< 1 tahun)","1–2 tahun","3–5 tahun","Lebih dari 5 tahun"]
+  },
+  {
+    q: "Tantangan terbesar kamu sekarang?",
+    opts: ["Pelanggan sepi","Tidak tau cara marketing","Cashflow seret","Banyak saingan","Omzet stagnan"]
+  },
+  {
+    q: "Omzet bisnis kamu per bulan kira-kira?",
+    opts: ["Di bawah Rp 5 juta","Rp 5–20 juta","Rp 20–50 juta","Di atas Rp 50 juta"]
+  },
+  {
+    q: "Nomor WhatsApp kamu?",
+    type: "input",
+    placeholder: "Contoh: 0812-3456-7890",
+    hint: "Analisis bisnis dikirim ke nomor ini dalam 5 menit."
+  }
+];
+
+const LOADING_TEXTS = [
+  "Tim Tumbuh lagi baca cerita bisnis kamu...",
+  "Lagi nganalisis kondisi pasar yang relevan...",
+  "Hampir selesai — nyusun rekomendasi yang spesifik buat kamu...",
+];
+
+let currentStep = 0;
+let answers = [];
+let waInput = "";
+
+// ============================================================
+// RENDER FORM
+// ============================================================
+function renderForm() {
+  const card = document.getElementById("form-card");
+  if (!card) return;
+
+  if (currentStep >= QUESTIONS.length) {
+    submitForm();
+    return;
+  }
+
+  const q = QUESTIONS[currentStep];
+  const progress = Math.round((currentStep / QUESTIONS.length) * 100);
+
+  let bodyHtml = "";
+
+  if (q.type === "input") {
+    bodyHtml = `
+      <input
+        type="tel"
+        class="form-input"
+        id="wa-input"
+        placeholder="${q.placeholder}"
+        value="${waInput}"
+        oninput="waInput = this.value"
+        onkeydown="if(event.key==='Enter') nextStep()"
+      >
+      <div class="form-hint">${q.hint}</div>
+      <button class="form-btn-next" onclick="nextStep()">
+        Kirim analisis ke WA gue 📩
+      </button>
+    `;
+  } else {
+    bodyHtml = `
+      <div class="form-opts">
+        ${q.opts.map((opt, i) => `
+          <button
+            class="form-opt${answers[currentStep] === i ? " sel" : ""}"
+            onclick="selectOpt(${i})"
+          >
+            <span class="form-opt-dot"></span>
+            ${opt}
+          </button>
+        `).join("")}
+      </div>
+      <button
+        class="form-btn-next"
+        onclick="nextStep()"
+        ${answers[currentStep] === undefined ? "disabled" : ""}
+      >
+        Lanjut →
+      </button>
+    `;
+  }
+
+  card.innerHTML = `
+    <div class="form-step-label">Langkah ${currentStep + 1} dari ${QUESTIONS.length}</div>
+    <div class="form-progress">
+      <div class="form-progress-fill" style="width: ${progress}%"></div>
+    </div>
+    <div class="form-question">${q.q}</div>
+    <div id="form-error" class="form-error"></div>
+    ${bodyHtml}
+    ${currentStep > 0
+      ? `<button class="form-btn-back" onclick="prevStep()">← Kembali</button>`
+      : ""}
+  `;
+
+  if (q.type === "input") {
+    document.getElementById("wa-input")?.focus();
+  }
+}
+
+function selectOpt(i) {
+  answers[currentStep] = i;
+  renderForm();
+}
+
+function nextStep() {
+  const q = QUESTIONS[currentStep];
+
+  if (q.type === "input") {
+    const el = document.getElementById("wa-input");
+    if (el) waInput = el.value.trim();
+    if (!waInput) {
+      showError("Nomor WhatsApp tidak boleh kosong ya.");
+      return;
+    }
+  } else {
+    if (answers[currentStep] === undefined) return;
+  }
+
+  currentStep++;
+  renderForm();
+}
+
+function prevStep() {
+  if (currentStep > 0) {
+    currentStep--;
+    renderForm();
+  }
+}
+
+function showError(msg) {
+  const el = document.getElementById("form-error");
+  if (el) { el.textContent = msg; el.style.display = "block"; }
+}
+
+// ============================================================
+// LOADING STATE
+// ============================================================
+function showLoading() {
+  const card = document.getElementById("form-card");
+  let idx = 0;
+  card.innerHTML = `
+    <div class="form-loading">
+      <div class="form-loading-spinner"></div>
+      <div class="form-loading-texts" id="loading-text">${LOADING_TEXTS[0]}</div>
+    </div>
+  `;
+  const interval = setInterval(() => {
+    idx = (idx + 1) % LOADING_TEXTS.length;
+    const el = document.getElementById("loading-text");
+    if (el) el.textContent = LOADING_TEXTS[idx];
+  }, 1800);
+  return interval;
+}
+
+// ============================================================
+// SUCCESS STATE
+// ============================================================
+function showSuccess() {
+  document.getElementById("form-card").innerHTML = `
+    <div class="form-success">
+      <div class="form-success-icon">🌱</div>
+      <div class="form-success-h">Makasih! Tim Tumbuh lagi analisis bisnis kamu.</div>
+      <p class="form-success-p">
+        Tunggu ya — kami kirim insight langsung ke WhatsApp kamu<br>
+        dalam <strong>5 menit</strong>. Pastikan HP kamu aktif!
+      </p>
+    </div>
+  `;
+}
+
+// ============================================================
+// SUBMIT KE BACKEND
+// ============================================================
+async function submitForm() {
+  const loadingInterval = showLoading();
+
+  const opsiLabel = {
+    0: QUESTIONS[0].opts[answers[0]] || "-",
+    1: QUESTIONS[1].opts[answers[1]] || "-",
+    2: QUESTIONS[2].opts[answers[2]] || "-",
+    3: QUESTIONS[3].opts[answers[3]] || "-",
+  };
+
+  const payload = {
+    kategori:   opsiLabel[0],
+    lama_usaha: opsiLabel[1],
+    tantangan:  opsiLabel[2],
+    omzet:      opsiLabel[3],
+    nomor_wa:   normalizeWA(waInput),
+    timestamp:  new Date().toISOString(),
+  };
+
+  clearInterval(loadingInterval);
+
+  // Kalau URL belum diset, langsung tampil sukses (mode demo)
+  if (APPS_SCRIPT_URL === "GANTI_DENGAN_URL_GOOGLE_APPS_SCRIPT_KAMU") {
+    setTimeout(showSuccess, 1500);
+    return;
+  }
+
+  try {
+    const res = await fetch(APPS_SCRIPT_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+    const data = await res.json();
+    if (data.status === "ok") {
+      showSuccess();
+    } else {
+      showFormError("Ada masalah, coba lagi ya.");
+    }
+  } catch (err) {
+    console.error(err);
+    // Kalau gagal karena CORS Apps Script (normal), tetap tampil sukses
+    // karena data biasanya tetap masuk ke Sheets
+    showSuccess();
+  }
+}
+
+function showFormError(msg) {
+  document.getElementById("form-card").innerHTML = `
+    <div style="text-align:center;padding:2rem 1rem;">
+      <div style="font-size:36px;margin-bottom:1rem;">😔</div>
+      <p style="font-size:14px;color:#5a6e48;">${msg}</p>
+      <button class="form-btn-next" style="margin-top:1rem;" onclick="location.reload()">Coba lagi</button>
+    </div>
+  `;
+}
+
+// ============================================================
+// UTILITIES
+// ============================================================
+function normalizeWA(nomor) {
+  const clean = nomor.replace(/[\s\-().+]/g, "");
+  if (clean.startsWith("0"))  return "62" + clean.slice(1);
+  if (clean.startsWith("62")) return clean;
+  return "62" + clean;
+}
+
+function scrollToForm() {
+  document.getElementById("form-section").scrollIntoView({ behavior: "smooth" });
+}
+
+// ============================================================
+// INIT
+// ============================================================
+document.addEventListener("DOMContentLoaded", renderForm);
+</script>
+
+</body>
+</html>
