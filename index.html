@@ -632,7 +632,7 @@ const QUESTIONS = [
   },
   {
     q: "Tantangan terbesar kamu sekarang?",
-    opts: ["Pelanggan sepi","Tidak tau cara marketing","Cashflow seret","Banyak saingan","Omzet stagnan"]
+    opts: ["Pelanggan sepi","Tidak tau cara marketing","Cashflow seret","Banyak saingan","Omzet stagnan","Lainnya"]
   },
   {
     q: "Omzet bisnis kamu per bulan kira-kira?",
@@ -656,6 +656,7 @@ let currentStep = 0;
 let answers = [];
 let waInput = "";
 let lainnyaDesc = "";
+let tantanganDesc = "";
 
 // ============================================================
 // RENDER FORM
@@ -691,7 +692,8 @@ function renderForm() {
       </button>
     `;
   } else {
-    const isLainnya = currentStep === 0 && QUESTIONS[0].opts[answers[0]] === "Lainnya";
+    const isKategoriLainnya  = currentStep === 0 && QUESTIONS[0].opts[answers[0]] === "Lainnya";
+    const isTantanganLainnya = currentStep === 2 && QUESTIONS[2].opts[answers[2]] === "Lainnya";
     bodyHtml = `
       <div class="form-opts">
         ${q.opts.map((opt, i) => `
@@ -704,7 +706,7 @@ function renderForm() {
           </button>
         `).join("")}
       </div>
-      ${isLainnya ? `
+      ${isKategoriLainnya ? `
         <input
           type="text"
           class="form-input"
@@ -716,6 +718,19 @@ function renderForm() {
           style="margin-top:4px;"
         >
         <div class="form-hint">Singkat aja — biar tim bisa kasih saran yang pas.</div>
+      ` : ""}
+      ${isTantanganLainnya ? `
+        <input
+          type="text"
+          class="form-input"
+          id="tantangan-input"
+          placeholder="Contoh: susah rekrut karyawan, stok sering kosong..."
+          value="${tantanganDesc}"
+          oninput="tantanganDesc = this.value"
+          onkeydown="if(event.key==='Enter') nextStep()"
+          style="margin-top:4px;"
+        >
+        <div class="form-hint">Ceritain singkat — biar tim bisa fokus ke masalah yang beneran.</div>
       ` : ""}
       <button
         class="form-btn-next"
@@ -744,6 +759,8 @@ function renderForm() {
     document.getElementById("wa-input")?.focus();
   } else if (currentStep === 0 && QUESTIONS[0].opts[answers[0]] === "Lainnya") {
     document.getElementById("lainnya-input")?.focus();
+  } else if (currentStep === 2 && QUESTIONS[2].opts[answers[2]] === "Lainnya") {
+    document.getElementById("tantangan-input")?.focus();
   }
 }
 
@@ -764,12 +781,21 @@ function nextStep() {
     }
   } else {
     if (answers[currentStep] === undefined) return;
-    // Kalau pilih "Lainnya" di step 0, wajib isi deskripsi singkat
+    // Kalau pilih "Lainnya" di step 0, wajib isi deskripsi bisnis
     if (currentStep === 0 && QUESTIONS[0].opts[answers[0]] === "Lainnya") {
       const el = document.getElementById("lainnya-input");
       if (el) lainnyaDesc = el.value.trim();
       if (!lainnyaDesc) {
         showError("Ceritain dikit usaha kamu ya 😊");
+        return;
+      }
+    }
+    // Kalau pilih "Lainnya" di step 2, wajib isi tantangan spesifik
+    if (currentStep === 2 && QUESTIONS[2].opts[answers[2]] === "Lainnya") {
+      const el = document.getElementById("tantangan-input");
+      if (el) tantanganDesc = el.value.trim();
+      if (!tantanganDesc) {
+        showError("Ceritain dikit tantangan kamu ya 😊");
         return;
       }
     }
@@ -842,9 +868,9 @@ async function submitForm() {
 
   const payload = {
     kategori:   opsiLabel[0],
-    deskripsi:  lainnyaDesc,   // diisi kalau user pilih "Lainnya"
+    deskripsi:  lainnyaDesc,   // diisi kalau user pilih "Lainnya" di kategori
     lama_usaha: opsiLabel[1],
-    tantangan:  opsiLabel[2],
+    tantangan:  opsiLabel[2] === "Lainnya" ? tantanganDesc : opsiLabel[2],
     omzet:      opsiLabel[3],
     nomor_wa:   normalizeWA(waInput),
     timestamp:  new Date().toISOString(),
