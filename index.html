@@ -655,6 +655,7 @@ const LOADING_TEXTS = [
 let currentStep = 0;
 let answers = [];
 let waInput = "";
+let lainnyaDesc = "";
 
 // ============================================================
 // RENDER FORM
@@ -690,6 +691,7 @@ function renderForm() {
       </button>
     `;
   } else {
+    const isLainnya = currentStep === 0 && QUESTIONS[0].opts[answers[0]] === "Lainnya";
     bodyHtml = `
       <div class="form-opts">
         ${q.opts.map((opt, i) => `
@@ -702,6 +704,19 @@ function renderForm() {
           </button>
         `).join("")}
       </div>
+      ${isLainnya ? `
+        <input
+          type="text"
+          class="form-input"
+          id="lainnya-input"
+          placeholder="Contoh: jual tanaman hias, jasa foto produk..."
+          value="${lainnyaDesc}"
+          oninput="lainnyaDesc = this.value"
+          onkeydown="if(event.key==='Enter') nextStep()"
+          style="margin-top:4px;"
+        >
+        <div class="form-hint">Singkat aja — biar tim bisa kasih saran yang pas.</div>
+      ` : ""}
       <button
         class="form-btn-next"
         onclick="nextStep()"
@@ -727,6 +742,8 @@ function renderForm() {
 
   if (q.type === "input") {
     document.getElementById("wa-input")?.focus();
+  } else if (currentStep === 0 && QUESTIONS[0].opts[answers[0]] === "Lainnya") {
+    document.getElementById("lainnya-input")?.focus();
   }
 }
 
@@ -747,6 +764,15 @@ function nextStep() {
     }
   } else {
     if (answers[currentStep] === undefined) return;
+    // Kalau pilih "Lainnya" di step 0, wajib isi deskripsi singkat
+    if (currentStep === 0 && QUESTIONS[0].opts[answers[0]] === "Lainnya") {
+      const el = document.getElementById("lainnya-input");
+      if (el) lainnyaDesc = el.value.trim();
+      if (!lainnyaDesc) {
+        showError("Ceritain dikit usaha kamu ya 😊");
+        return;
+      }
+    }
   }
 
   currentStep++;
@@ -816,6 +842,7 @@ async function submitForm() {
 
   const payload = {
     kategori:   opsiLabel[0],
+    deskripsi:  lainnyaDesc,   // diisi kalau user pilih "Lainnya"
     lama_usaha: opsiLabel[1],
     tantangan:  opsiLabel[2],
     omzet:      opsiLabel[3],
