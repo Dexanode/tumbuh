@@ -4,31 +4,42 @@
 # Import file ini di backend untuk pakai semua persona
 # ============================================================
 
-from persona.rina   import build_system_prompt as build_rina,   EXTRACTION_PROMPT as extract_rina
-from persona.dinda  import build_system_prompt as build_dinda,  EXTRACTION_PROMPT as extract_dinda
-from persona.budi   import build_system_prompt as build_budi,   EXTRACTION_PROMPT as extract_budi
-from persona.hendra import build_system_prompt as build_hendra, EXTRACTION_PROMPT as extract_hendra
-from persona.rayla  import build_system_prompt as build_rayla,  EXTRACTION_PROMPT as extract_rayla
-from persona.arif   import build_system_prompt as build_arif,   EXTRACTION_PROMPT as extract_arif
+from personas.rina   import build_system_prompt as build_rina,   EXTRACTION_PROMPT as extract_rina
+from personas.dinda  import build_system_prompt as build_dinda,  EXTRACTION_PROMPT as extract_dinda
+from personas.budi   import build_system_prompt as build_budi,   EXTRACTION_PROMPT as extract_budi
+from personas.hendra import build_system_prompt as build_hendra, EXTRACTION_PROMPT as extract_hendra
+from personas.rayla  import build_system_prompt as build_rayla,  EXTRACTION_PROMPT as extract_rayla
+from personas.arif   import build_system_prompt as build_arif,   EXTRACTION_PROMPT as extract_arif
+from personas.kera   import build_system_prompt as build_kera,   EXTRACTION_PROMPT as extract_kera
 
 
 # ============================================================
 # ROUTING — Pilih persona berdasarkan data user
 # ============================================================
 
+# Keyword untuk auto-detect Kera (Digital/Online/Freelance)
+KEYWORD_KERA = [
+    "freelance", "online", "digital", "konten", "content",
+    "creator", "affiliate", "dropship", "reseller online",
+    "instagram", "tiktok", "youtube", "desain", "design",
+    "copywriting", "social media", "smm", "editing", "edit",
+    "website", "aplikasi", "jasa online", "passive income",
+    "side hustle", "jualan online", "bisnis online"
+]
+
 # Keyword untuk auto-detect Rayla (Perdagangan)
 KEYWORD_RAYLA = [
     "warung", "toko", "kelontong", "eceran", "reseller",
     "distributor", "agen", "dagang", "retail", "sembako",
-    "grosir", "dropship", "kulakan", "pedagang"
+    "grosir", "kulakan", "pedagang"
 ]
 
 # Keyword untuk auto-detect Arif (Wildcard)
 KEYWORD_ARIF = [
     "ternak", "budidaya", "tambak", "kebun", "sawah",
     "rental", "sewa", "foto", "video", "fotografi",
-    "sablon", "percetakan", "desain", "jangkrik", "lele",
-    "ikan", "ayam", "kambing", "tato", "barber", "pangkas",
+    "sablon", "percetakan", "jangkrik", "lele",
+    "ikan", "kambing", "tato", "barber", "pangkas",
     "spa", "refleksi", "musik", "kursus", "travel", "tour",
     "souvenir", "kerajinan", "handmade", "tanaman", "pupuk"
 ]
@@ -36,16 +47,16 @@ KEYWORD_ARIF = [
 def pilih_persona(kategori: str, deskripsi: str = "") -> str:
     """
     Pilih nama persona berdasarkan kategori form + deskripsi bisnis.
-    
-    Returns: "RINA" | "DINDA" | "BUDI" | "HENDRA" | "RAYLA" | "ARIF"
+
+    Returns: "RINA"|"DINDA"|"BUDI"|"HENDRA"|"RAYLA"|"KERA"|"ARIF"
     """
     # Mapping langsung dari pilihan form
     kategori_map = {
-        "Makanan & Minuman":    "RINA",
-        "Fashion & Pakaian":    "DINDA",
-        "Jasa & Servis":        "BUDI",
-        "Produk Rumahan":       "HENDRA",
-        "Perdagangan & Warung": "RAYLA",
+        "Makanan & Minuman": "RINA",
+        "Fashion & Pakaian": "DINDA",
+        "Jasa & Servis":     "BUDI",
+        "Produk Rumahan":    "HENDRA",
+        "Bisnis Online":     "KERA",
     }
 
     if kategori in kategori_map:
@@ -53,6 +64,10 @@ def pilih_persona(kategori: str, deskripsi: str = "") -> str:
 
     # Kalau "Lainnya", analisis deskripsi bisnis user
     deskripsi_lower = deskripsi.lower()
+
+    for keyword in KEYWORD_KERA:
+        if keyword in deskripsi_lower:
+            return "KERA"
 
     for keyword in KEYWORD_RAYLA:
         if keyword in deskripsi_lower:
@@ -75,17 +90,18 @@ def get_system_prompt(
 ) -> tuple[str, str]:
     """
     Ambil system prompt yang sudah dirakit lengkap.
-    
+
     Returns: (system_prompt, nama_persona)
     """
     persona = pilih_persona(kategori, deskripsi)
-    
+
     builders = {
         "RINA":   build_rina,
         "DINDA":  build_dinda,
         "BUDI":   build_budi,
         "HENDRA": build_hendra,
         "RAYLA":  build_rayla,
+        "KERA":   build_kera,
         "ARIF":   build_arif,
     }
     
@@ -104,6 +120,7 @@ def get_extraction_prompt(persona: str, conversation_text: str) -> str:
         "BUDI":   extract_budi,
         "HENDRA": extract_hendra,
         "RAYLA":  extract_rayla,
+        "KERA":   extract_kera,
         "ARIF":   extract_arif,
     }
     
