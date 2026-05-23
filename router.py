@@ -52,11 +52,12 @@ def pilih_persona(kategori: str, deskripsi: str = "") -> str:
     """
     # Mapping langsung dari pilihan form
     kategori_map = {
-        "Makanan & Minuman": "RINA",
-        "Fashion & Pakaian": "DINDA",
-        "Jasa & Servis":     "BUDI",
-        "Produk Rumahan":    "HENDRA",
-        "Bisnis Online":     "KERA",
+        "Makanan & Minuman":    "RINA",
+        "Fashion & Pakaian":    "DINDA",
+        "Jasa & Servis":        "BUDI",
+        "Produk Rumahan":       "HENDRA",
+        "Perdagangan & Warung": "RAYLA",
+        "Bisnis Online":        "KERA",
     }
 
     if kategori in kategori_map:
