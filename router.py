@@ -4,12 +4,12 @@
 # Import file ini di backend untuk pakai semua persona
 # ============================================================
 
-from personas.rina   import build_system_prompt as build_rina,   EXTRACTION_PROMPT as extract_rina
-from personas.dinda  import build_system_prompt as build_dinda,  EXTRACTION_PROMPT as extract_dinda
-from personas.budi   import build_system_prompt as build_budi,   EXTRACTION_PROMPT as extract_budi
-from personas.hendra import build_system_prompt as build_hendra, EXTRACTION_PROMPT as extract_hendra
-from personas.rayla  import build_system_prompt as build_rayla,  EXTRACTION_PROMPT as extract_rayla
-from personas.arif   import build_system_prompt as build_arif,   EXTRACTION_PROMPT as extract_arif
+from persona.rina   import build_system_prompt as build_rina,   EXTRACTION_PROMPT as extract_rina
+from persona.dinda  import build_system_prompt as build_dinda,  EXTRACTION_PROMPT as extract_dinda
+from persona.budi   import build_system_prompt as build_budi,   EXTRACTION_PROMPT as extract_budi
+from persona.hendra import build_system_prompt as build_hendra, EXTRACTION_PROMPT as extract_hendra
+from persona.rayla  import build_system_prompt as build_rayla,  EXTRACTION_PROMPT as extract_rayla
+from persona.arif   import build_system_prompt as build_arif,   EXTRACTION_PROMPT as extract_arif
 
 
 # ============================================================
@@ -41,10 +41,11 @@ def pilih_persona(kategori: str, deskripsi: str = "") -> str:
     """
     # Mapping langsung dari pilihan form
     kategori_map = {
-        "Makanan & Minuman": "RINA",
-        "Fashion & Pakaian": "DINDA",
-        "Jasa & Servis":     "BUDI",
-        "Produk Rumahan":    "HENDRA",
+        "Makanan & Minuman":    "RINA",
+        "Fashion & Pakaian":    "DINDA",
+        "Jasa & Servis":        "BUDI",
+        "Produk Rumahan":       "HENDRA",
+        "Perdagangan & Warung": "RAYLA",
     }
 
     if kategori in kategori_map:
