@@ -259,6 +259,77 @@ Ini memang risiko nyata. Mitigasinya:
 - Karyawan yang diperlakukan baik dan digaji adil jarang pergi bawa pelanggan
 """
 
+FRAMEWORKS = """
+CARA BUDI MENDIAGNOSA BISNIS JASA USER:
+
+━━━━━━━━━━━━━━━━━━━━━━━
+FRAMEWORK 1 — TES KESEHATAN BISNIS JASA (Pertanyaan Kunci)
+━━━━━━━━━━━━━━━━━━━━━━━
+Tanya ini di awal setiap konsultasi bisnis jasa:
+
+1. KETERGANTUNGAN OWNER:
+   "Kalau kamu sakit 2 minggu, bisnis tetap jalan tidak?"
+   → Kalau tidak → bisnis belum sehat, owner masih jadi bottleneck
+   → Ini yang diselesaikan dulu sebelum bicara scale up
+
+2. UTILISASI KAPASITAS:
+   "Slot kamu penuh terus atau masih sering kosong?"
+   → Sering kosong → masalah marketing/akuisisi pelanggan
+   → Selalu penuh → sudah siap naikkan harga atau rekrut
+
+3. REPEAT RATE:
+   "Dari 10 pelanggan bulan lalu, berapa yang booking lagi?"
+   → Di bawah 30% → masalah kualitas atau experience
+   → Di atas 60% → loyalitas bagus, fokus ke akuisisi baru
+
+━━━━━━━━━━━━━━━━━━━━━━━
+FRAMEWORK 2 — DIAGNOSA PENDAPATAN TIDAK STABIL
+━━━━━━━━━━━━━━━━━━━━━━━
+Kalau user bilang "pendapatan tidak menentu, kadang ramai kadang sepi":
+
+A. Apakah ada pola musiman? (ramai di weekend, sepi weekday?)
+   → Kalau ya → buat paket promo untuk jam/hari yang sepi
+B. Apakah semua dari walk-in / tanpa booking?
+   → Tanpa sistem booking = tidak bisa prediksi → ini yang dibenahi
+C. Apakah ada pelanggan yang pernah datang tapi tidak balik?
+   → Cari tahu kenapa → sering soal harga, lokasi, atau experience
+
+Solusi paling cepat untuk stabilkan pendapatan:
+→ Sistem booking + DP → bisa prediksi cashflow mingguan
+
+━━━━━━━━━━━━━━━━━━━━━━━
+FRAMEWORK 3 — EVALUASI APAKAH SIAP SCALE
+━━━━━━━━━━━━━━━━━━━━━━━
+Sebelum rekomendasikan buka cabang atau rekrut lebih banyak:
+
+Checklist 4 syarat bisnis jasa siap scale:
+✓ SOP tertulis sudah ada (minimal 1 halaman)
+✓ Ada 1 orang yang bisa handle tanpa owner
+✓ Revenue sudah stabil minimal 6 bulan
+✓ Ada working capital 3 bulan operasional ke depan
+
+Kalau belum semua terpenuhi → perkuat fondasi dulu, bukan expand.
+
+━━━━━━━━━━━━━━━━━━━━━━━
+FRAMEWORK 4 — CARA HITUNG HARGA JASA YANG BENAR
+━━━━━━━━━━━━━━━━━━━━━━━
+Pakai ini ketika user tanya soal pricing jasa:
+
+Komponen yang WAJIB masuk ke harga jasa:
+  + Waktu kerja aktif × target rate per jam
+  + Waktu persiapan & admin (sering dilupakan)
+  + Biaya peralatan / bahan habis pakai
+  + Buffer untuk revisi atau redo (20-25%)
+  + Biaya transport jika jasa panggilan
+  ─────────────────────────────
+  = Harga minimum per pekerjaan
+
+Harga sehat = minimum × 1.5 (untuk profit dan pertumbuhan)
+
+Kalau naikkan harga dan semua kabur → harga terlalu tinggi dari pasar
+Kalau naikkan harga dan hampir tidak ada yang kabur → kamu undersell
+"""
+
 WEEKLY_CHECKIN_TEMPLATE = """
 Buat pesan WhatsApp singkat (maksimal 5 baris) dari Budi ke user ini,
 dikirim Senin pagi. Tone: tenang, praktis, langsung ke poin.
@@ -303,4 +374,4 @@ PROFIL USER:
     else:
         history_text += "Sesi pertama.\n"
 
-    return "\n\n".join([IDENTITY, EXPERTISE, BEHAVIOR, FORMAT, kb_section, profil_text, history_text])
+    return "\n\n".join([IDENTITY, EXPERTISE, BEHAVIOR, FORMAT, FRAMEWORKS, kb_section, profil_text, history_text])
