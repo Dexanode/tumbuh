@@ -647,9 +647,10 @@ const QUESTIONS = [
 ];
 
 const LOADING_TEXTS = [
-  "Tim Tumbuh lagi baca cerita bisnis kamu...",
-  "Lagi nganalisis kondisi pasar yang relevan...",
-  "Hampir selesai — nyusun rekomendasi yang spesifik buat kamu...",
+  "Tim Tumbuh lagi baca cerita bisnis kamu nih... 🌱",
+  "Lagi nganalisis kondisi pasar yang relevan buat usaha kamu...",
+  "Lagi nyusun insight yang spesifik — bukan template ya, ini beneran dibaca 😊",
+  "Hampir selesai! Tunggu sebentar, hasilnya langsung dikirim ke WA kamu...",
 ];
 
 let currentStep = 0;
@@ -825,8 +826,14 @@ function showLoading() {
   let idx = 0;
   card.innerHTML = `
     <div class="form-loading">
-      <div class="form-loading-spinner"></div>
+      <div style="display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:1rem;">
+        <div class="form-loading-spinner"></div>
+        <span style="font-family:'Sora',sans-serif;font-weight:700;font-size:15px;color:var(--g600);">Tim Tumbuh</span>
+      </div>
       <div class="form-loading-texts" id="loading-text">${LOADING_TEXTS[0]}</div>
+      <div style="margin-top:.75rem;font-size:11px;color:var(--muted);text-align:center;">
+        Biasanya 2–5 menit · cek WhatsApp kamu ya 📱
+      </div>
     </div>
   `;
   const interval = setInterval(() => {
