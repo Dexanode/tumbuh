@@ -6,222 +6,1696 @@
 <title>Tumbuh — Konsultan Bisnis untuk UMKM Indonesia</title>
 <meta name="description" content="Tim Tumbuh hadir sebagai mitra bisnis kamu — kasih analisis nyata, saran actionable, dan pendampingan langsung lewat WhatsApp.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=DM+Sans:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
 <style>
-/* ===================== RESET & BASE ===================== */
+/* ===================== RESET & BASE SYSTEM ===================== */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
-body { font-family: 'DM Sans', sans-serif; color: #0f1f05; background: #fff; line-height: 1.6; }
-img { max-width: 100%; display: block; }
 
-/* ===================== VARIABLES ===================== */
+/* ===================== DESIGN TOKENS (HSL PALETTE) ===================== */
 :root {
-  --g50:  #f0f9e8;
-  --g100: #d6f0b8;
-  --g200: #b8e080;
-  --g400: #5a9e1a;
-  --g600: #3a7010;
-  --g800: #1e3f08;
-  --ink:  #0f1f05;
-  --muted: #5a6e48;
-  --border: #d8ecc0;
-  --ff: 'Sora', sans-serif;
-  --fb: 'DM Sans', sans-serif;
-  --radius: 12px;
-  --radius-lg: 20px;
+  --bg-cream:       hsl(45, 20%, 97%);
+  --bg-white:       hsl(0, 0%, 100%);
+  --ink-dark:       hsl(140, 45%, 8%);
+  --ink-muted:      hsl(140, 15%, 35%);
+  --brand-emerald:  hsl(142, 60%, 40%);
+  --brand-forest:   hsl(140, 50%, 14%);
+  --brand-sage:     hsl(120, 25%, 90%);
+  --brand-mint:     hsl(135, 40%, 94%);
+  --accent-gold:    hsl(38, 90%, 55%);
+  --accent-rose:    hsl(355, 75%, 96%);
+  --border-sage:    hsla(140, 20%, 30%, 0.08);
+  --border-glow:    hsla(142, 60%, 40%, 0.2);
+  
+  --ff-sans:        'Plus Jakarta Sans', sans-serif;
+  --ff-serif:       'Instrument Serif', serif;
+  
+  --radius-sm:      8px;
+  --radius-md:      16px;
+  --radius-lg:      28px;
+  
+  --shadow-sm:      0 2px 8px rgba(7, 35, 14, 0.04);
+  --shadow-md:      0 8px 30px rgba(7, 35, 14, 0.06);
+  --shadow-lg:      0 16px 40px rgba(7, 35, 14, 0.1);
+  --shadow-glow:    0 0 20px hsla(142, 60%, 40%, 0.15);
+  
+  --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* ===================== UTILITIES ===================== */
-.container { max-width: 980px; margin: 0 auto; padding: 0 1.5rem; }
-.eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--g400); margin-bottom: .6rem; font-family: var(--ff); }
-.section-h { font-family: var(--ff); font-size: clamp(24px, 3.5vw, 36px); font-weight: 800; line-height: 1.15; letter-spacing: -0.5px; color: var(--ink); margin-bottom: .75rem; }
-.section-h em { color: var(--g400); font-style: normal; }
-.section-sub { font-size: 15px; color: var(--muted); line-height: 1.75; max-width: 500px; }
-.btn-primary { display: inline-flex; align-items: center; gap: 8px; background: var(--g600); color: #fff; padding: 13px 26px; border-radius: 99px; font-family: var(--ff); font-size: 15px; font-weight: 600; border: none; cursor: pointer; text-decoration: none; transition: background .2s; }
-.btn-primary:hover { background: var(--g800); }
-.btn-ghost { display: inline-flex; align-items: center; gap: 8px; background: transparent; color: var(--ink); padding: 13px 22px; border-radius: 99px; font-family: var(--ff); font-size: 15px; font-weight: 500; border: 1px solid var(--border); cursor: pointer; text-decoration: none; transition: background .2s; }
-.btn-ghost:hover { background: var(--g50); }
+body {
+  font-family: var(--ff-sans);
+  color: var(--ink-dark);
+  background: var(--bg-cream);
+  line-height: 1.6;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Background Decorative Elements */
+.bg-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(120px);
+  z-index: -1;
+  pointer-events: none;
+}
+.blob-1 {
+  top: 10%;
+  right: -10%;
+  width: 40vw;
+  height: 40vw;
+  background: hsla(142, 50%, 50%, 0.06);
+  animation: float-blob 25s infinite alternate ease-in-out;
+}
+.blob-2 {
+  top: 40%;
+  left: -15%;
+  width: 50vw;
+  height: 50vw;
+  background: hsla(38, 90%, 60%, 0.04);
+  animation: float-blob 30s infinite alternate-reverse ease-in-out;
+}
+.blob-3 {
+  bottom: 10%;
+  right: -5%;
+  width: 35vw;
+  height: 35vw;
+  background: hsla(140, 50%, 30%, 0.05);
+  animation: float-blob 20s infinite alternate ease-in-out;
+}
+
+@keyframes float-blob {
+  0% { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(4vw, -6vw) scale(1.1); }
+}
+
+/* ===================== UTILITIES & LAYOUT ===================== */
+.container {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.eyebrow {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--brand-emerald);
+  margin-bottom: 0.75rem;
+  background: var(--brand-mint);
+  padding: 4px 12px;
+  border-radius: 99px;
+  border: 1px solid var(--border-sage);
+}
+
+.section-h {
+  font-family: var(--ff-sans);
+  font-size: clamp(28px, 4.5vw, 44px);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -1px;
+  color: var(--brand-forest);
+  margin-bottom: 1rem;
+}
+.section-h em {
+  font-family: var(--ff-serif);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--brand-emerald);
+  font-size: 1.15em;
+  line-height: 0;
+}
+
+.section-sub {
+  font-size: 16px;
+  color: var(--ink-muted);
+  line-height: 1.7;
+  max-width: 600px;
+}
+
+/* Buttons */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--brand-forest);
+  color: var(--bg-white);
+  padding: 16px 32px;
+  border-radius: 99px;
+  font-size: 15px;
+  font-weight: 700;
+  border: 1px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition-smooth);
+}
+.btn-primary:hover {
+  background: var(--brand-emerald);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md), var(--shadow-glow);
+}
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--bg-white);
+  color: var(--brand-forest);
+  padding: 16px 28px;
+  border-radius: 99px;
+  font-size: 15px;
+  font-weight: 600;
+  border: 1px solid var(--border-sage);
+  cursor: pointer;
+  text-decoration: none;
+  transition: var(--transition-smooth);
+}
+.btn-ghost:hover {
+  background: var(--brand-mint);
+  border-color: var(--brand-emerald);
+  transform: translateY(-2px);
+}
+.btn-ghost:active {
+  transform: translateY(0);
+}
 
 /* ===================== NAVBAR ===================== */
-.nav { position: sticky; top: 0; z-index: 100; background: #fff; border-bottom: 1px solid var(--border); }
-.nav-inner { display: flex; align-items: center; justify-content: space-between; padding: 1rem 1.5rem; max-width: 980px; margin: 0 auto; }
-.nav-logo { font-family: var(--ff); font-weight: 800; font-size: 20px; color: var(--g600); display: flex; align-items: center; gap: 8px; text-decoration: none; }
-.nav-logo-icon { width: 28px; height: 28px; background: var(--g400); border-radius: 50% 50% 50% 0; display: flex; align-items: center; justify-content: center; }
-.nav-logo-icon svg { width: 14px; height: 14px; fill: #fff; }
-.nav-links { display: flex; gap: 1.5rem; }
-.nav-links a { font-size: 14px; color: var(--muted); text-decoration: none; font-family: var(--ff); transition: color .2s; }
-.nav-links a:hover { color: var(--ink); }
-.nav-cta { background: var(--g600); color: #fff; padding: 9px 20px; border-radius: 99px; font-family: var(--ff); font-size: 14px; font-weight: 600; border: none; cursor: pointer; transition: background .2s; }
-.nav-cta:hover { background: var(--g800); }
-@media (max-width: 600px) { .nav-links { display: none; } }
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(244, 247, 242, 0.8);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border-sage);
+  transition: var(--transition-smooth);
+}
+.nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem 2rem;
+  max-width: 1120px;
+  margin: 0 auto;
+}
+.nav-logo {
+  font-weight: 800;
+  font-size: 22px;
+  color: var(--brand-forest);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  letter-spacing: -0.5px;
+}
+.nav-logo-icon {
+  width: 32px;
+  height: 32px;
+  background: var(--brand-emerald);
+  border-radius: 8px 16px 8px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition-smooth);
+}
+.nav-logo:hover .nav-logo-icon {
+  transform: rotate(-10deg) scale(1.05);
+}
+.nav-logo-icon svg {
+  width: 18px;
+  height: 18px;
+  fill: var(--bg-white);
+}
+.nav-links {
+  display: flex;
+  gap: 2.25rem;
+}
+.nav-links a {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink-muted);
+  text-decoration: none;
+  position: relative;
+  transition: var(--transition-smooth);
+}
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -6px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--brand-emerald);
+  transition: var(--transition-smooth);
+}
+.nav-links a:hover {
+  color: var(--brand-forest);
+}
+.nav-links a:hover::after {
+  width: 100%;
+}
+.nav-cta {
+  background: var(--brand-forest);
+  color: var(--bg-white);
+  padding: 12px 24px;
+  border-radius: 99px;
+  font-size: 14px;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition-smooth);
+}
+.nav-cta:hover {
+  background: var(--brand-emerald);
+  box-shadow: var(--shadow-glow);
+  transform: translateY(-1px);
+}
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+}
 
-/* ===================== HERO ===================== */
-.hero { background: var(--g50); overflow: hidden; }
-.hero-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: center; padding: 4rem 1.5rem 0; max-width: 980px; margin: 0 auto; }
-.hero-tag { display: inline-flex; align-items: center; gap: 6px; background: #fff; border: 1px solid #c8e8a0; padding: 5px 14px; border-radius: 99px; font-size: 12px; font-weight: 600; color: var(--g600); margin-bottom: 1.25rem; font-family: var(--ff); }
-.hero-h1 { font-family: var(--ff); font-size: clamp(28px, 4vw, 46px); font-weight: 800; line-height: 1.12; color: var(--ink); margin-bottom: 1rem; letter-spacing: -1.5px; }
-.hero-h1 span { color: var(--g400); }
-.hero-sub { font-size: 16px; line-height: 1.7; color: var(--muted); margin-bottom: 2rem; max-width: 400px; }
-.hero-actions { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
-.hero-note { font-size: 12px; color: var(--muted); margin-top: 12px; }
-.hero-right { position: relative; align-self: flex-end; }
-.hero-img { width: 100%; max-width: 400px; margin-left: auto; background: var(--g100); border-radius: 20px 20px 0 0; overflow: hidden; }
-.hero-bubble { position: absolute; top: 20px; left: -20px; background: #fff; border-radius: 14px; padding: 10px 14px; border: 1px solid var(--border); box-shadow: 0 4px 16px rgba(0,0,0,0.06); }
-.hero-bubble-label { font-size: 11px; font-weight: 600; color: var(--g600); font-family: var(--ff); }
-.hero-bubble-num { font-size: 22px; font-weight: 800; color: var(--ink); font-family: var(--ff); line-height: 1.1; }
-.hero-bubble-sub { font-size: 11px; color: var(--muted); }
-.hero-bubble2 { position: absolute; bottom: 30px; right: 0; background: var(--g600); border-radius: 14px; padding: 10px 14px; color: #fff; }
-.hero-bubble2-t { font-size: 11px; font-weight: 600; font-family: var(--ff); }
-.hero-bubble2-n { font-size: 18px; font-weight: 800; font-family: var(--ff); }
-@media (max-width: 700px) {
-  .hero-inner { grid-template-columns: 1fr; }
-  .hero-right { display: none; }
-  .hero-h1 { font-size: 28px; }
+/* ===================== HERO SECTION ===================== */
+.hero {
+  padding: 5rem 0 3rem;
+  overflow: hidden;
+  position: relative;
+}
+.hero-inner {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 4rem;
+  align-items: center;
+}
+.hero-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--bg-white);
+  border: 1px solid var(--border-sage);
+  padding: 6px 16px;
+  border-radius: 99px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--brand-forest);
+  margin-bottom: 1.5rem;
+  box-shadow: var(--shadow-sm);
+}
+.hero-h1 {
+  font-size: clamp(36px, 5vw, 56px);
+  font-weight: 800;
+  line-height: 1.1;
+  color: var(--brand-forest);
+  margin-bottom: 1.5rem;
+  letter-spacing: -1.5px;
+}
+.hero-h1 span {
+  font-family: var(--ff-serif);
+  font-weight: 400;
+  font-style: italic;
+  color: var(--brand-emerald);
+  font-size: 1.1em;
+}
+.hero-sub {
+  font-size: 18px;
+  line-height: 1.7;
+  color: var(--ink-muted);
+  margin-bottom: 2.5rem;
+  max-width: 500px;
+}
+.hero-actions {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.hero-note {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ink-muted);
+  margin-top: 1.5rem;
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.hero-note span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.hero-note span::before {
+  content: '✓';
+  color: var(--brand-emerald);
+  font-weight: 800;
+}
+
+.hero-right {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Premium 3D WhatsApp CSS Mockup */
+.wa-mockup {
+  width: 100%;
+  max-width: 320px;
+  background: var(--bg-white);
+  border-radius: 40px;
+  padding: 10px;
+  box-shadow: var(--shadow-lg), 0 20px 50px rgba(7, 35, 14, 0.12);
+  border: 1px solid var(--border-sage);
+  position: relative;
+  animation: mockup-float 6s infinite ease-in-out;
+  z-index: 2;
+}
+
+@keyframes mockup-float {
+  0%, 100% { transform: translateY(0) rotate(2deg); }
+  50% { transform: translateY(-12px) rotate(0deg); }
+}
+
+.wa-screen {
+  background: #ECE5DD;
+  border-radius: 32px;
+  overflow: hidden;
+  height: 480px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+.wa-header {
+  background: var(--brand-forest);
+  color: var(--bg-white);
+  padding: 30px 16px 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  position: relative;
+}
+.wa-header::before {
+  content: '';
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 12px;
+  background: #000;
+  border-radius: 99px;
+}
+.wa-avatar {
+  width: 34px;
+  height: 34px;
+  background: var(--brand-emerald);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 14px;
+  color: var(--bg-white);
+}
+.wa-info {
+  flex-grow: 1;
+}
+.wa-name {
+  font-size: 13px;
+  font-weight: 700;
+  display: block;
+}
+.wa-status {
+  font-size: 10px;
+  opacity: 0.8;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.wa-status-dot {
+  width: 6px;
+  height: 6px;
+  background: #25D366;
+  border-radius: 50%;
+  display: inline-block;
+  animation: pulse-dot 1.5s infinite;
+}
+
+@keyframes pulse-dot {
+  0% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.5); opacity: 0.5; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.wa-chat-body {
+  padding: 14px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  overflow-y: auto;
+}
+.wa-bubble {
+  max-width: 85%;
+  padding: 10px 14px;
+  border-radius: 14px;
+  font-size: 12px;
+  line-height: 1.4;
+  position: relative;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.08);
+  opacity: 0;
+  transform: translateY(15px);
+  animation: bubble-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+.wa-bubble.incoming {
+  background: var(--bg-white);
+  color: var(--ink-dark);
+  align-self: flex-start;
+  border-top-left-radius: 4px;
+}
+.wa-bubble.outgoing {
+  background: #E1F3D4;
+  color: var(--ink-dark);
+  align-self: flex-end;
+  border-top-right-radius: 4px;
+}
+.wa-bubble.insight {
+  background: var(--brand-forest);
+  color: var(--bg-white);
+  align-self: flex-start;
+  border-top-left-radius: 4px;
+  border: 1px solid var(--brand-emerald);
+}
+.wa-bubble-title {
+  font-weight: 700;
+  color: var(--accent-gold);
+  margin-bottom: 4px;
+  font-size: 11px;
+}
+.wa-time {
+  font-size: 9px;
+  color: var(--ink-muted);
+  text-align: right;
+  display: block;
+  margin-top: 4px;
+}
+.wa-bubble.insight .wa-time {
+  color: rgba(255,255,255,0.6);
+}
+.wa-badge {
+  background: var(--brand-emerald);
+  color: var(--bg-white);
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 10px;
+  font-weight: 700;
+  display: inline-block;
+  margin-top: 6px;
+  text-align: center;
+  width: 100%;
+}
+
+@keyframes bubble-in {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.wa-bubble:nth-child(1) { animation-delay: 0.5s; }
+.wa-bubble:nth-child(2) { animation-delay: 1.5s; }
+.wa-bubble:nth-child(3) { animation-delay: 2.8s; }
+
+/* Typing indicator */
+.typing-indicator {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  padding: 4px 0;
+}
+.typing-dot {
+  width: 5px;
+  height: 5px;
+  background: var(--ink-muted);
+  border-radius: 50%;
+  animation: typing-blink 1.4s infinite both;
+}
+.typing-dot:nth-child(2) { animation-delay: 0.2s; }
+.typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes typing-blink {
+  0% { opacity: 0.2; transform: scale(0.8); }
+  20% { opacity: 1; transform: scale(1.1); }
+  100% { opacity: 0.2; transform: scale(0.8); }
+}
+
+.wa-mockup-badge-satisfaction {
+  position: absolute;
+  top: 15px;
+  left: -40px;
+  background: var(--bg-white);
+  padding: 12px 18px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-sage);
+  box-shadow: var(--shadow-md);
+  z-index: 3;
+}
+.wa-satisfaction-title {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--ink-muted);
+  text-transform: uppercase;
+}
+.wa-satisfaction-val {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--brand-forest);
+}
+
+.wa-mockup-badge-users {
+  position: absolute;
+  bottom: 25px;
+  right: -30px;
+  background: var(--brand-emerald);
+  color: var(--bg-white);
+  padding: 12px 18px;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+  z-index: 3;
+}
+.wa-users-val {
+  font-size: 18px;
+  font-weight: 800;
+  display: block;
+}
+.wa-users-lbl {
+  font-size: 10px;
+  opacity: 0.9;
+}
+
+@media (max-width: 991px) {
+  .hero-inner { grid-template-columns: 1fr; gap: 3rem; text-align: center; }
+  .hero-actions { justify-content: center; }
+  .hero-sub { margin-left: auto; margin-right: auto; }
+  .hero-note { justify-content: center; }
+  .wa-mockup { margin: 0 auto; }
 }
 
 /* ===================== TRUST BAR ===================== */
-.trust-bar { background: #fff; padding: 1.25rem 1.5rem; border-bottom: 1px solid var(--border); }
-.trust-inner { max-width: 980px; margin: 0 auto; display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; }
-.trust-label { font-size: 13px; color: var(--muted); font-family: var(--ff); flex-shrink: 0; }
-.trust-cities { display: flex; gap: 1.25rem; flex-wrap: wrap; }
-.trust-city { font-family: var(--ff); font-weight: 700; font-size: 14px; color: #ccc; }
+.trust-bar {
+  background: var(--bg-white);
+  padding: 2rem 0;
+  border-top: 1px solid var(--border-sage);
+  border-bottom: 1px solid var(--border-sage);
+}
+.trust-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+.trust-label {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--ink-muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.trust-cities {
+  display: flex;
+  gap: 2.5rem;
+  flex-wrap: wrap;
+}
+.trust-city {
+  font-family: var(--ff-sans);
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--brand-forest);
+  opacity: 0.35;
+  transition: var(--transition-smooth);
+}
+.trust-city:hover {
+  opacity: 0.95;
+  color: var(--brand-emerald);
+}
+@media (max-width: 768px) {
+  .trust-inner { flex-direction: column; text-align: center; }
+  .trust-cities { justify-content: center; gap: 1.5rem; }
+}
 
-/* ===================== PAIN SECTION ===================== */
-.pain-section { padding: 5rem 0; }
-.pain-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
-.pain-list { list-style: none; margin-top: 1.75rem; display: flex; flex-direction: column; gap: 1.25rem; }
-.pain-item { display: flex; gap: 14px; align-items: flex-start; }
-.pain-icon { width: 42px; height: 42px; border-radius: 12px; background: var(--g50); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 20px; }
-.pain-title { font-size: 14px; font-weight: 600; color: var(--ink); font-family: var(--ff); margin-bottom: 3px; }
-.pain-desc { font-size: 13px; color: var(--muted); line-height: 1.65; }
-@media (max-width: 700px) { .pain-grid { grid-template-columns: 1fr; } }
+/* ===================== PAIN & SOLUTION ===================== */
+.pain-section {
+  padding: 7rem 0;
+}
+.pain-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+}
+.pain-box {
+  background: var(--bg-white);
+  padding: 3rem;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-sage);
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition-smooth);
+}
+.pain-box:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+}
+.pain-box.frustration {
+  border-left: 5px solid hsl(12, 75%, 50%);
+  background: linear-gradient(180deg, var(--bg-white) 0%, hsl(12, 100%, 99%) 100%);
+}
+.pain-box.solution {
+  border-left: 5px solid var(--brand-emerald);
+  background: linear-gradient(180deg, var(--bg-white) 0%, var(--brand-mint) 100%);
+}
+.pain-list {
+  list-style: none;
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+}
+.pain-item {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+.pain-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 20px;
+  box-shadow: var(--shadow-sm);
+}
+.pain-box.frustration .pain-icon {
+  background: hsl(12, 75%, 95%);
+  border: 1px solid hsl(12, 75%, 90%);
+}
+.pain-box.solution .pain-icon {
+  background: var(--bg-white);
+  border: 1px solid var(--border-glow);
+}
+.pain-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--brand-forest);
+  margin-bottom: 4px;
+}
+.pain-desc {
+  font-size: 14px;
+  color: var(--ink-muted);
+  line-height: 1.6;
+}
+@media (max-width: 991px) {
+  .pain-grid { grid-template-columns: 1fr; gap: 2rem; }
+  .pain-box { padding: 2rem; }
+}
 
-/* ===================== FEATURES ===================== */
-.feat-section { background: var(--g50); padding: 5rem 0; }
-.feat-header { text-align: center; margin-bottom: 2.5rem; }
-.feat-header .section-sub { margin: 0 auto; }
-.feat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 16px; margin-top: 2.5rem; }
-.feat-card { background: #fff; border-radius: var(--radius-lg); padding: 1.5rem; border: 1px solid var(--border); }
-.feat-card-icon { width: 44px; height: 44px; border-radius: 12px; margin-bottom: 1rem; display: flex; align-items: center; justify-content: center; font-size: 22px; }
-.feat-card-icon.g { background: var(--g100); }
-.feat-card-icon.y { background: #fef3d0; }
-.feat-card-icon.b { background: #ddf0fc; }
-.feat-card-icon.o { background: #fde8e0; }
-.feat-avatar { width: 72px; height: 72px; border-radius: 50%; object-fit: cover; margin-bottom: 1rem; border: 3px solid var(--g100); display: block; }
-.feat-card-title { font-size: 15px; font-weight: 700; font-family: var(--ff); color: var(--ink); margin-bottom: 6px; }
-.feat-card-desc { font-size: 13px; color: var(--muted); line-height: 1.65; }
+/* ===================== FEATURES / SPECIALISTS ===================== */
+.feat-section {
+  background: var(--brand-forest);
+  color: var(--bg-white);
+  padding: 7rem 0;
+  position: relative;
+  overflow: hidden;
+}
+.feat-section::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: repeating-linear-gradient(45deg, rgba(255,255,255,0.01) 0px, rgba(255,255,255,0.01) 2px, transparent 2px, transparent 10px);
+  pointer-events: none;
+}
+.feat-header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+.feat-header .section-h {
+  color: var(--bg-white);
+}
+.feat-header .section-sub {
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0 auto;
+}
+.feat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+.feat-card {
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: var(--radius-lg);
+  padding: 2.25rem 1.75rem;
+  border: 1px solid rgba(255,255,255,0.08);
+  backdrop-filter: blur(10px);
+  transition: var(--transition-smooth);
+  position: relative;
+  overflow: hidden;
+}
+.feat-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 4px;
+  background: var(--brand-emerald);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: var(--transition-smooth);
+}
+.feat-card:hover {
+  background: rgba(255, 255, 255, 0.08);
+  transform: translateY(-8px);
+  border-color: rgba(255,255,255,0.18);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+}
+.feat-card:hover::before {
+  transform: scaleX(1);
+}
+.feat-avatar-wrapper {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  margin-bottom: 1.5rem;
+}
+.feat-avatar {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid rgba(255,255,255,0.2);
+  transition: var(--transition-smooth);
+}
+.feat-card:hover .feat-avatar {
+  border-color: var(--brand-emerald);
+  transform: scale(1.05);
+}
+.feat-badge {
+  position: absolute;
+  bottom: -4px;
+  right: -4px;
+  background: var(--accent-gold);
+  color: var(--brand-forest);
+  font-size: 9px;
+  font-weight: 800;
+  padding: 3px 8px;
+  border-radius: 99px;
+  border: 2px solid var(--brand-forest);
+  text-transform: uppercase;
+}
+.feat-card-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--bg-white);
+  margin-bottom: 8px;
+}
+.feat-card-desc {
+  font-size: 13.5px;
+  color: rgba(255, 255, 255, 0.65);
+  line-height: 1.6;
+}
 
 /* ===================== DARK BANNER ===================== */
-.banner { background: var(--g800); padding: 4rem 0; }
-.banner-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; align-items: center; }
-.banner-h { font-family: var(--ff); font-size: clamp(22px, 3vw, 34px); font-weight: 800; color: #fff; line-height: 1.2; letter-spacing: -0.5px; }
-.banner-h em { color: #a8dc60; font-style: normal; }
-.banner-sub { font-size: 14px; color: rgba(255,255,255,0.6); margin-top: .5rem; line-height: 1.6; }
-.banner-stats { display: flex; flex-direction: column; gap: 14px; }
-.banner-stat { background: rgba(255,255,255,0.08); border-radius: 14px; padding: 1rem 1.25rem; border: 1px solid rgba(255,255,255,0.1); }
-.banner-stat-num { font-family: var(--ff); font-size: 26px; font-weight: 800; color: #a8dc60; }
-.banner-stat-label { font-size: 13px; color: rgba(255,255,255,0.6); margin-top: 2px; }
-@media (max-width: 700px) { .banner-inner { grid-template-columns: 1fr; } }
+.banner {
+  background: linear-gradient(135deg, hsl(140, 50%, 10%) 0%, var(--brand-forest) 100%);
+  padding: 5rem 0;
+  border-top: 1px solid rgba(255,255,255,0.05);
+}
+.banner-inner {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 4rem;
+  align-items: center;
+}
+.banner-h {
+  font-size: clamp(26px, 3.5vw, 38px);
+  font-weight: 800;
+  color: var(--bg-white);
+  line-height: 1.2;
+  letter-spacing: -0.5px;
+}
+.banner-h em {
+  font-family: var(--ff-serif);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--brand-emerald);
+}
+.banner-sub {
+  font-size: 15px;
+  color: rgba(255,255,255,0.6);
+  margin-top: 1rem;
+}
+.banner-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+.banner-stat {
+  background: rgba(255,255,255,0.03);
+  border-radius: var(--radius-md);
+  padding: 1.25rem 1.75rem;
+  border: 1px solid rgba(255,255,255,0.06);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: var(--transition-smooth);
+}
+.banner-stat:hover {
+  background: rgba(255,255,255,0.06);
+  border-color: rgba(255,255,255,0.15);
+  transform: translateX(4px);
+}
+.banner-stat-num {
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--accent-gold);
+  letter-spacing: -0.5px;
+}
+.banner-stat-label {
+  font-size: 13px;
+  color: rgba(255,255,255,0.7);
+  text-align: right;
+}
+@media (max-width: 768px) {
+  .banner-inner { grid-template-columns: 1fr; gap: 3rem; }
+  .banner-stat { flex-direction: column; text-align: center; gap: 8px; }
+  .banner-stat-label { text-align: center; }
+}
 
 /* ===================== HOW IT WORKS ===================== */
-.how-section { padding: 5rem 0; }
-.how-steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; margin-top: 2.5rem; }
-.how-step { padding: 1.25rem; position: relative; }
-.how-step:not(:last-child)::after { content: '→'; position: absolute; right: -8px; top: 1.5rem; font-size: 20px; color: var(--g200); font-weight: bold; }
-.step-num { width: 36px; height: 36px; background: var(--g600); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--ff); font-size: 14px; font-weight: 700; color: #fff; margin-bottom: 1rem; }
-.step-title { font-size: 15px; font-weight: 700; font-family: var(--ff); color: var(--ink); margin-bottom: 6px; }
-.step-desc { font-size: 13px; color: var(--muted); line-height: 1.65; }
-@media (max-width: 700px) {
-  .how-steps { grid-template-columns: 1fr 1fr; }
-  .how-step:nth-child(2)::after { display: none; }
+.how-section {
+  padding: 7rem 0;
+}
+.how-steps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+  margin-top: 4rem;
+  position: relative;
+}
+.how-steps::before {
+  content: '';
+  position: absolute;
+  top: 30px;
+  left: 10%;
+  right: 10%;
+  height: 2px;
+  background: var(--border-sage);
+  z-index: 1;
+}
+.how-step {
+  padding: 1.5rem;
+  background: var(--bg-white);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-sage);
+  z-index: 2;
+  position: relative;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition-smooth);
+}
+.how-step:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--brand-emerald);
+}
+.step-num {
+  width: 44px;
+  height: 44px;
+  background: var(--brand-forest);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--bg-white);
+  margin-bottom: 1.5rem;
+  box-shadow: var(--shadow-sm);
+  border: 3px solid var(--bg-white);
+  transition: var(--transition-smooth);
+}
+.how-step:hover .step-num {
+  background: var(--brand-emerald);
+  transform: scale(1.1);
+}
+.step-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--brand-forest);
+  margin-bottom: 8px;
+}
+.step-desc {
+  font-size: 13px;
+  color: var(--ink-muted);
+  line-height: 1.6;
+}
+
+@media (max-width: 991px) {
+  .how-steps { grid-template-columns: 1fr 1fr; gap: 2rem; }
+  .how-steps::before { display: none; }
+}
+@media (max-width: 576px) {
+  .how-steps { grid-template-columns: 1fr; }
 }
 
 /* ===================== TESTIMONIALS ===================== */
-.testi-section { background: var(--g50); padding: 5rem 0; }
-.testi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin-top: 2.5rem; }
-.testi-card { background: #fff; border-radius: var(--radius-lg); padding: 1.5rem; border: 1px solid var(--border); }
-.testi-stars { color: #f59e0b; font-size: 13px; margin-bottom: .75rem; letter-spacing: 1px; }
-.testi-q { font-size: 14px; line-height: 1.75; color: var(--ink); margin-bottom: 1rem; font-style: italic; }
-.testi-author { display: flex; align-items: center; gap: 10px; }
-.testi-av { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; flex-shrink: 0; }
-.testi-name { font-size: 13px; font-weight: 600; color: var(--ink); font-family: var(--ff); }
-.testi-biz { font-size: 12px; color: var(--muted); }
-
-/* ===================== PRICING ===================== */
-.price-section { padding: 5rem 0; }
-.price-header { text-align: center; }
-.price-cards { display: flex; gap: 20px; justify-content: center; margin-top: 2.5rem; flex-wrap: wrap; }
-.price-card { background: #fff; border-radius: var(--radius-lg); padding: 2rem; width: 250px; border: 1px solid var(--border); }
-.price-card.hot { border: 2px solid var(--g400); background: var(--g50); }
-.price-badge { display: inline-block; background: var(--g400); color: #fff; font-size: 11px; font-weight: 700; padding: 4px 12px; border-radius: 99px; margin-bottom: .75rem; font-family: var(--ff); }
-.price-tier { font-size: 13px; color: var(--muted); margin-bottom: 4px; font-family: var(--ff); }
-.price-amount { font-family: var(--ff); font-size: 32px; font-weight: 800; color: var(--ink); line-height: 1; }
-.price-period { font-size: 12px; color: var(--muted); margin-bottom: 1.25rem; }
-.price-feats { list-style: none; margin-bottom: 1.5rem; display: flex; flex-direction: column; gap: 9px; }
-.price-feats li { font-size: 13px; color: var(--muted); display: flex; align-items: flex-start; gap: 8px; line-height: 1.5; }
-.price-feats li::before { content: '✓'; color: var(--g400); font-weight: 700; flex-shrink: 0; }
-.price-btn { width: 100%; padding: 11px; border-radius: 99px; font-family: var(--ff); font-size: 14px; font-weight: 600; cursor: pointer; border: 1.5px solid var(--g400); color: var(--g600); background: transparent; transition: background .2s; }
-.price-btn:hover { background: var(--g50); }
-.price-btn.solid { background: var(--g600); color: #fff; border-color: var(--g600); }
-.price-btn.solid:hover { background: var(--g800); }
-
-/* ===================== FORM CTA SECTION ===================== */
-.form-section { background: var(--g600); padding: 5rem 0; }
-.form-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; }
-.form-left-h { font-family: var(--ff); font-size: clamp(22px, 3vw, 34px); font-weight: 800; color: #fff; line-height: 1.2; letter-spacing: -0.5px; margin-bottom: .75rem; }
-.form-left-h em { color: #c8f080; font-style: normal; }
-.form-left-sub { font-size: 15px; color: rgba(255,255,255,0.7); line-height: 1.7; }
-.form-checklist { margin-top: 1.5rem; display: flex; flex-direction: column; gap: 10px; }
-.form-check { display: flex; align-items: center; gap: 10px; font-size: 14px; color: rgba(255,255,255,0.8); }
-.form-check-icon { color: #c8f080; font-weight: 700; }
-@media (max-width: 700px) {
-  .form-inner { grid-template-columns: 1fr; }
-  .form-left { text-align: center; }
-  .form-checklist { align-items: center; }
+.testi-section {
+  padding: 7rem 0;
+  background: var(--brand-mint);
+}
+.testi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 4rem;
+}
+.testi-card {
+  background: var(--bg-white);
+  border-radius: var(--radius-lg);
+  padding: 2.5rem;
+  border: 1px solid var(--border-sage);
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition-smooth);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.testi-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--brand-emerald);
+}
+.testi-stars {
+  color: var(--accent-gold);
+  font-size: 15px;
+  margin-bottom: 1.25rem;
+  letter-spacing: 2px;
+}
+.testi-q {
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--ink-dark);
+  margin-bottom: 2rem;
+  font-style: italic;
+}
+.testi-author {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.testi-av {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+  border: 2px solid var(--brand-mint);
+}
+.testi-name {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--brand-forest);
+}
+.testi-biz {
+  font-size: 12px;
+  color: var(--ink-muted);
+}
+@media (max-width: 768px) {
+  .testi-card { padding: 1.75rem; }
 }
 
-/* ===================== FORM CARD ===================== */
-.form-card { background: #fff; border-radius: var(--radius-lg); padding: 1.75rem; }
-.form-progress { height: 4px; background: #e8f2d8; border-radius: 99px; margin-bottom: 1.5rem; overflow: hidden; }
-.form-progress-fill { height: 100%; background: var(--g400); border-radius: 99px; transition: width .35s ease; }
-.form-step-label { font-size: 11px; color: var(--muted); margin-bottom: .4rem; font-family: var(--ff); }
-.form-question { font-family: var(--ff); font-size: 16px; font-weight: 700; color: var(--ink); margin-bottom: 1.25rem; line-height: 1.4; }
-.form-opts { display: flex; flex-direction: column; gap: 8px; margin-bottom: 1.25rem; }
-.form-opt { display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: 12px; border: 1px solid #dde8cc; cursor: pointer; font-size: 13px; color: var(--ink); background: #fff; font-family: var(--fb); text-align: left; transition: border-color .15s, background .15s; width: 100%; }
-.form-opt:hover { border-color: var(--g400); background: var(--g50); }
-.form-opt.sel { border-color: var(--g600); background: var(--g50); color: var(--g600); font-weight: 500; }
-.form-opt-dot { width: 16px; height: 16px; border-radius: 50%; border: 1.5px solid #ccc; flex-shrink: 0; transition: all .15s; }
-.form-opt.sel .form-opt-dot { background: var(--g600); border-color: var(--g600); }
-.form-input { width: 100%; padding: 11px 14px; border: 1px solid #dde8cc; border-radius: 12px; font-family: var(--fb); font-size: 14px; color: var(--ink); background: #fff; margin-bottom: .5rem; outline: none; transition: border-color .15s; }
-.form-input:focus { border-color: var(--g400); }
-.form-hint { font-size: 11px; color: var(--muted); margin-bottom: 1.25rem; }
-.form-btn-next { width: 100%; padding: 12px; background: var(--g600); color: #fff; border: none; border-radius: 99px; font-family: var(--ff); font-size: 14px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 7px; transition: background .2s; }
-.form-btn-next:hover:not(:disabled) { background: var(--g800); }
-.form-btn-next:disabled { opacity: .5; cursor: not-allowed; }
-.form-btn-back { background: none; border: none; font-size: 12px; color: var(--muted); cursor: pointer; margin-top: 10px; font-family: var(--fb); display: block; }
-.form-btn-back:hover { color: var(--ink); }
-.form-error { font-size: 13px; color: #c0392b; background: #fde8e0; border-radius: 8px; padding: 8px 12px; margin-bottom: 12px; display: none; }
+/* ===================== FOUNDER STORY (EDITORIAL) ===================== */
+.founder-section {
+  padding: 8rem 0;
+  background: #FAF9F5;
+  border-top: 1px solid var(--border-sage);
+  border-bottom: 1px solid var(--border-sage);
+}
+.founder-wrap {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+.founder-card {
+  background: var(--bg-white);
+  padding: 4.5rem;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-sage);
+  box-shadow: var(--shadow-md);
+  position: relative;
+}
+.founder-card::after {
+  content: '"';
+  position: absolute;
+  top: 20px;
+  left: 40px;
+  font-family: var(--ff-serif);
+  font-size: 120px;
+  color: var(--brand-mint);
+  line-height: 1;
+}
+.founder-eyebrow {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--brand-emerald);
+  text-align: center;
+  margin-bottom: 1rem;
+}
+.founder-h {
+  font-family: var(--ff-serif);
+  font-size: clamp(32px, 5vw, 46px);
+  font-weight: 400;
+  line-height: 1.15;
+  color: var(--brand-forest);
+  text-align: center;
+  margin-bottom: 3rem;
+}
+.founder-h em {
+  font-style: italic;
+  color: var(--brand-emerald);
+}
+.founder-story p {
+  font-size: 16px;
+  line-height: 1.85;
+  color: var(--ink-dark);
+  margin-bottom: 1.75rem;
+}
+.founder-story p::first-letter {
+  font-family: var(--ff-serif);
+  font-size: 3.5em;
+  float: left;
+  line-height: 0.8;
+  padding-right: 8px;
+  color: var(--brand-forest);
+}
+.founder-story p + p::first-letter {
+  font-size: 1em;
+  float: none;
+  line-height: inherit;
+  padding-right: 0;
+  color: inherit;
+}
+.founder-pull {
+  font-family: var(--ff-serif);
+  font-size: 26px;
+  font-weight: 400;
+  font-style: italic;
+  color: var(--brand-emerald);
+  padding: 2rem;
+  background: var(--brand-mint);
+  border-left: 4px solid var(--brand-emerald);
+  border-radius: 4px 16px 16px 4px;
+  margin: 2.5rem 0 !important;
+  line-height: 1.4 !important;
+}
+.founder-sign {
+  margin-top: 3.5rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border-sage);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+.founder-sign-left {
+  max-width: 70%;
+}
+.founder-sign-name {
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--brand-forest);
+}
+.founder-sign-note {
+  font-size: 12px;
+  color: var(--ink-muted);
+  margin-top: 4px;
+  font-style: italic;
+}
+.founder-signature {
+  font-family: var(--ff-serif);
+  font-size: 32px;
+  font-style: italic;
+  color: var(--brand-emerald);
+  opacity: 0.7;
+}
 
-/* Loading state */
-.form-loading { text-align: center; padding: 2rem 1rem; }
-.form-loading-spinner { width: 40px; height: 40px; border: 3px solid var(--g100); border-top-color: var(--g600); border-radius: 50%; animation: spin .8s linear infinite; margin: 0 auto 1rem; }
-@keyframes spin { to { transform: rotate(360deg); } }
-.form-loading-texts { font-size: 14px; color: var(--muted); }
+@media (max-width: 768px) {
+  .founder-card { padding: 2.5rem 1.75rem; }
+  .founder-card::after { left: 20px; font-size: 80px; }
+  .founder-pull { font-size: 20px; padding: 1.25rem; }
+  .founder-sign { flex-direction: column; align-items: flex-start; gap: 1.5rem; }
+  .founder-sign-left { max-width: 100%; }
+}
+
+/* ===================== PRICING ===================== */
+.price-section {
+  padding: 7rem 0;
+}
+.price-header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+.price-cards {
+  display: flex;
+  gap: 2.5rem;
+  justify-content: center;
+  align-items: stretch;
+  flex-wrap: wrap;
+}
+.price-card {
+  background: var(--bg-white);
+  border-radius: var(--radius-lg);
+  padding: 3rem 2.5rem;
+  width: 100%;
+  max-width: 380px;
+  border: 1px solid var(--border-sage);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: var(--transition-smooth);
+}
+.price-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-md);
+}
+.price-card.hot {
+  border: 2.5px solid var(--brand-emerald);
+  background: linear-gradient(180deg, var(--bg-white) 0%, var(--brand-mint) 100%);
+  position: relative;
+  box-shadow: var(--shadow-glow);
+}
+.price-badge {
+  position: absolute;
+  top: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--accent-gold);
+  color: var(--brand-forest);
+  font-size: 11px;
+  font-weight: 800;
+  padding: 6px 16px;
+  border-radius: 99px;
+  box-shadow: var(--shadow-sm);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border: 1px solid var(--brand-forest);
+}
+.price-tier {
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  margin-bottom: 0.5rem;
+  letter-spacing: 1px;
+}
+.price-amount {
+  font-size: 42px;
+  font-weight: 800;
+  color: var(--brand-forest);
+  line-height: 1;
+  letter-spacing: -1px;
+}
+.price-period {
+  font-size: 13px;
+  color: var(--ink-muted);
+  margin-bottom: 2rem;
+}
+.price-feats {
+  list-style: none;
+  margin-bottom: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.price-feats li {
+  font-size: 14px;
+  color: var(--brand-forest);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.price-feats li::before {
+  content: '✓';
+  color: var(--brand-emerald);
+  font-weight: 800;
+}
+.price-btn {
+  width: 100%;
+  padding: 14px;
+  border-radius: 99px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  border: 2px solid var(--brand-emerald);
+  color: var(--brand-emerald);
+  background: transparent;
+  transition: var(--transition-smooth);
+}
+.price-btn:hover {
+  background: var(--brand-emerald);
+  color: var(--bg-white);
+  box-shadow: var(--shadow-glow);
+}
+.price-btn.solid {
+  background: var(--brand-forest);
+  color: var(--bg-white);
+  border-color: var(--brand-forest);
+}
+.price-btn.solid:hover {
+  background: var(--brand-emerald);
+  border-color: var(--brand-emerald);
+}
+
+/* ===================== FORM SECTION ===================== */
+.form-section {
+  background: var(--brand-forest);
+  padding: 7rem 0;
+  position: relative;
+  overflow: hidden;
+}
+.form-section::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: radial-gradient(circle at 80% 20%, hsla(142, 60%, 40%, 0.15) 0%, transparent 50%);
+  pointer-events: none;
+}
+.form-inner {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: 5rem;
+  align-items: center;
+}
+.form-left-h {
+  font-size: clamp(32px, 5vw, 46px);
+  font-weight: 800;
+  color: var(--bg-white);
+  line-height: 1.15;
+  letter-spacing: -1px;
+  margin-bottom: 1.5rem;
+}
+.form-left-h em {
+  font-family: var(--ff-serif);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--brand-emerald);
+}
+.form-left-sub {
+  font-size: 16px;
+  color: rgba(255,255,255,0.7);
+  line-height: 1.7;
+}
+.form-checklist {
+  margin-top: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+.form-check {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 15px;
+  color: rgba(255,255,255,0.85);
+}
+.form-check-icon {
+  width: 24px;
+  height: 24px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent-gold);
+  font-weight: 800;
+}
+
+/* ===================== FORM CARD & STATES ===================== */
+.form-card {
+  background: var(--bg-white);
+  border-radius: var(--radius-lg);
+  padding: 3rem;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255,255,255,0.1);
+  position: relative;
+}
+.form-progress {
+  height: 6px;
+  background: var(--brand-mint);
+  border-radius: 99px;
+  margin-bottom: 2rem;
+  overflow: hidden;
+}
+.form-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--brand-emerald) 0%, #25D366 100%);
+  border-radius: 99px;
+  width: 0;
+  transition: width 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.2);
+}
+.form-step-label {
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--brand-emerald);
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.form-question {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--brand-forest);
+  margin-bottom: 2rem;
+  line-height: 1.35;
+  letter-spacing: -0.5px;
+}
+.form-opts {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 2rem;
+}
+.form-opt {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 20px;
+  border-radius: var(--radius-md);
+  border: 1.5px solid var(--border-sage);
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink-dark);
+  background: var(--bg-white);
+  text-align: left;
+  transition: var(--transition-smooth);
+  width: 100%;
+}
+.form-opt:hover {
+  border-color: var(--brand-emerald);
+  background: var(--brand-mint);
+  transform: translateX(4px);
+}
+.form-opt.sel {
+  border-color: var(--brand-forest);
+  background: var(--brand-mint);
+  color: var(--brand-forest);
+  font-weight: 700;
+  box-shadow: var(--shadow-sm);
+}
+.form-opt-dot {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 2px solid #ccc;
+  flex-shrink: 0;
+  position: relative;
+  transition: var(--transition-smooth);
+}
+.form-opt.sel .form-opt-dot {
+  border-color: var(--brand-emerald);
+  background: var(--brand-emerald);
+}
+.form-opt.sel .form-opt-dot::after {
+  content: '';
+  position: absolute;
+  top: 4px; left: 4px; width: 6px; height: 6px;
+  background: var(--bg-white);
+  border-radius: 50%;
+}
+
+.form-input {
+  width: 100%;
+  padding: 16px 20px;
+  border: 2px solid var(--border-sage);
+  border-radius: var(--radius-md);
+  font-family: var(--ff-sans);
+  font-size: 15px;
+  color: var(--ink-dark);
+  background: var(--bg-white);
+  margin-bottom: 0.75rem;
+  outline: none;
+  transition: var(--transition-smooth);
+}
+.form-input:focus {
+  border-color: var(--brand-emerald);
+  box-shadow: 0 0 0 4px var(--brand-mint);
+}
+.form-hint {
+  font-size: 12px;
+  color: var(--ink-muted);
+  margin-bottom: 2rem;
+  display: block;
+}
+
+.form-btn-next {
+  width: 100%;
+  padding: 16px;
+  background: var(--brand-forest);
+  color: var(--bg-white);
+  border: none;
+  border-radius: 99px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition-smooth);
+}
+.form-btn-next:hover:not(:disabled) {
+  background: var(--brand-emerald);
+  box-shadow: var(--shadow-glow);
+}
+.form-btn-next:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.form-btn-back {
+  background: none;
+  border: none;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--ink-muted);
+  cursor: pointer;
+  margin-top: 1.5rem;
+  display: block;
+  width: 100%;
+  text-align: center;
+  transition: var(--transition-smooth);
+}
+.form-btn-back:hover {
+  color: var(--brand-forest);
+}
+
+.form-error {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: hsl(0, 75%, 35%);
+  background: hsl(0, 75%, 97%);
+  border-left: 4px solid hsl(0, 75%, 50%);
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin-bottom: 1.5rem;
+  display: none;
+}
+
+/* Slide micro-animation for step change */
+.form-step-container {
+  animation: step-in 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  opacity: 0;
+  transform: translateY(15px);
+}
+@keyframes step-in {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ===================== SPROUTING SEED LOADING STATE ===================== */
+.form-loading {
+  text-align: center;
+  padding: 3rem 1rem;
+}
+.sprout-container {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 2rem;
+}
+.sprout-soil {
+  position: absolute;
+  bottom: 8px;
+  left: 10px;
+  right: 10px;
+  height: 6px;
+  background: #8b5a2b;
+  border-radius: 3px;
+}
+.sprout-seed {
+  position: absolute;
+  bottom: 12px;
+  left: calc(50% - 10px);
+  width: 20px;
+  height: 15px;
+  background: #a0522d;
+  border-radius: 50% 50% 30% 30%;
+  animation: seed-pulsate 2s infinite ease-in-out;
+  transform-origin: bottom center;
+}
+.sprout-stem {
+  position: absolute;
+  bottom: 22px;
+  left: calc(50% - 2.5px);
+  width: 5px;
+  height: 0;
+  background: var(--brand-emerald);
+  border-radius: 3px;
+  animation: stem-stretch 2s infinite ease-in-out;
+  transform-origin: bottom center;
+}
+.sprout-leaf {
+  position: absolute;
+  width: 18px;
+  height: 12px;
+  background: var(--brand-emerald);
+  opacity: 0;
+}
+.sprout-leaf.left {
+  left: calc(50% - 18px);
+  bottom: 42px;
+  border-radius: 12px 0 12px 0;
+  transform: rotate(-30deg) scale(0);
+  transform-origin: bottom right;
+  animation: leaf-unfold-left 2s infinite ease-in-out;
+}
+.sprout-leaf.right {
+  left: 50%;
+  bottom: 45px;
+  border-radius: 0 12px 0 12px;
+  transform: rotate(30deg) scale(0);
+  transform-origin: bottom left;
+  animation: leaf-unfold-right 2s infinite ease-in-out;
+}
+
+@keyframes seed-pulsate {
+  0% { transform: scale(1); }
+  35% { transform: scale(1.15) rotate(-5deg); }
+  50% { transform: scale(1.05) rotate(5deg); background: #8b4513; }
+  75%, 100% { transform: scale(1) translateY(4px); }
+}
+@keyframes stem-stretch {
+  0%, 35% { height: 0; }
+  65%, 100% { height: 28px; }
+}
+@keyframes leaf-unfold-left {
+  0%, 55% { opacity: 0; transform: rotate(-30deg) scale(0); }
+  80%, 100% { opacity: 1; transform: rotate(0deg) scale(1); }
+}
+@keyframes leaf-unfold-right {
+  0%, 60% { opacity: 0; transform: rotate(30deg) scale(0); }
+  85%, 100% { opacity: 1; transform: rotate(0deg) scale(1); }
+}
+
+.form-loading-texts {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--brand-forest);
+  margin-bottom: 0.5rem;
+  min-height: 48px;
+}
+.form-loading-sub {
+  font-size: 12px;
+  color: var(--ink-muted);
+}
 
 /* Success state */
-.form-success { text-align: center; padding: 1.5rem 1rem; }
-.form-success-icon { font-size: 48px; margin-bottom: 1rem; }
-.form-success-h { font-family: var(--ff); font-size: 18px; font-weight: 700; color: var(--ink); margin-bottom: .5rem; }
-.form-success-p { font-size: 13px; color: var(--muted); line-height: 1.65; }
+.form-success {
+  text-align: center;
+  padding: 3rem 1.5rem;
+  animation: step-in 0.5s ease forwards;
+}
+.form-success-icon {
+  font-size: 56px;
+  margin-bottom: 1.5rem;
+  animation: icon-bounce 1s infinite alternate ease-in-out;
+  display: inline-block;
+}
+
+@keyframes icon-bounce {
+  to { transform: translateY(-8px) scale(1.05); }
+}
+
+.form-success-h {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--brand-forest);
+  margin-bottom: 1rem;
+}
+.form-success-p {
+  font-size: 14px;
+  color: var(--ink-muted);
+  line-height: 1.7;
+}
+.form-success-p strong {
+  color: var(--brand-emerald);
+}
+
+@media (max-width: 991px) {
+  .form-inner { grid-template-columns: 1fr; gap: 4rem; text-align: center; }
+  .form-checklist { align-items: center; }
+  .form-card { padding: 2rem; }
+}
 
 /* ===================== FOOTER ===================== */
-.footer { background: var(--ink); padding: 2rem 1.5rem; }
-.footer-inner { max-width: 980px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: gap; gap: 1rem; }
-.footer-logo { font-family: var(--ff); font-weight: 800; font-size: 18px; color: #a8dc60; }
-.footer-copy { font-size: 12px; color: rgba(255,255,255,0.4); }
+.footer {
+  background: var(--brand-forest);
+  padding: 3.5rem 2rem;
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+.footer-inner {
+  max-width: 1120px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+.footer-logo {
+  font-weight: 800;
+  font-size: 20px;
+  color: var(--bg-white);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.footer-copy {
+  font-size: 13px;
+  color: rgba(255,255,255,0.5);
+}
 </style>
 </head>
 <body>
+
+<!-- BLUR DECORATIONS -->
+<div class="bg-blob blob-1"></div>
+<div class="bg-blob blob-2"></div>
+<div class="bg-blob blob-3"></div>
 
 <!-- ===================== NAVBAR ===================== -->
 <nav class="nav">
@@ -243,84 +1717,86 @@ img { max-width: 100%; display: block; }
 
 <!-- ===================== HERO ===================== -->
 <section class="hero">
-  <div class="hero-inner">
-    <div class="hero-left">
-      <div class="hero-tag">🌱 Khusus untuk UMKM Indonesia</div>
-      <h1 class="hero-h1">
-        Bisnis kamu berhak untuk<br>
-        <span>tumbuh lebih besar.</span>
-      </h1>
-      <p class="hero-sub">
-        Tim Tumbuh hadir sebagai mitra bisnis kamu — kasih analisis nyata, saran actionable, dan pendampingan langsung lewat WhatsApp setiap saat.
-      </p>
-      <div class="hero-actions">
-        <button class="btn-primary" onclick="scrollToForm()">Ceritain bisnis kamu →</button>
-        <a href="#how" class="btn-ghost">Lihat cara kerjanya</a>
+  <div class="container">
+    <div class="hero-inner">
+      <div class="hero-left">
+        <div class="hero-tag">🌱 Khusus untuk UMKM Indonesia</div>
+        <h1 class="hero-h1">
+          Bisnis kamu berhak untuk<br>
+          <span>tumbuh lebih besar.</span>
+        </h1>
+        <p class="hero-sub">
+          Tim Tumbuh hadir sebagai mitra bisnis kamu — kasih analisis nyata, saran actionable, dan pendampingan langsung lewat WhatsApp setiap saat.
+        </p>
+        <div class="hero-actions">
+          <button class="btn-primary" onclick="scrollToForm()">Ceritain bisnis kamu →</button>
+          <a href="#how" class="btn-ghost">Lihat cara kerjanya</a>
+        </div>
+        <div class="hero-note">
+          <span>Gratis 7 hari pertama</span>
+          <span>Tanpa kartu kredit</span>
+          <span>Langsung via WhatsApp</span>
+        </div>
       </div>
-      <p class="hero-note">✓ Gratis 7 hari &nbsp;·&nbsp; ✓ Tanpa kartu kredit &nbsp;·&nbsp; ✓ Langsung via WhatsApp</p>
-    </div>
-    <div class="hero-right">
-      <div class="hero-bubble">
-        <div class="hero-bubble-label">UMKM Terbantu</div>
-        <div class="hero-bubble-num">2.400+</div>
-        <div class="hero-bubble-sub">di 38 kota Indonesia</div>
-      </div>
-      <div class="hero-img">
-        <svg viewBox="0 0 400 340" xmlns="http://www.w3.org/2000/svg">
-          <rect width="400" height="340" fill="#d6f0b8"/>
-          <circle cx="355" cy="40" r="70" fill="#b8e080" opacity=".5"/>
-          <circle cx="30" cy="310" r="50" fill="#b8e080" opacity=".4"/>
-          <!-- Phone frame -->
-          <rect x="100" y="10" width="200" height="320" rx="26" fill="#0f1f05"/>
-          <!-- Screen -->
-          <rect x="108" y="21" width="184" height="298" rx="20" fill="#f5f5f5"/>
-          <!-- Notch -->
-          <rect x="153" y="21" width="74" height="16" rx="8" fill="#0f1f05"/>
-          <!-- WA Header -->
-          <rect x="108" y="37" width="184" height="54" fill="#075E54"/>
-          <circle cx="135" cy="64" r="16" fill="#0a4f45"/>
-          <text x="135" y="69" text-anchor="middle" font-family="Sora,sans-serif" font-size="11" font-weight="700" fill="#c8f080">T</text>
-          <text x="158" y="59" font-family="Sora,sans-serif" font-size="10" font-weight="700" fill="#fff">Tim Tumbuh</text>
-          <circle cx="159" cy="72" r="3" fill="#25D366"/>
-          <text x="166" y="75" font-family="sans-serif" font-size="8" fill="rgba(255,255,255,0.65)">online</text>
-          <!-- Chat background -->
-          <rect x="108" y="91" width="184" height="219" fill="#ECE5DD"/>
-          <!-- Date badge -->
-          <rect x="156" y="98" width="88" height="16" rx="8" fill="rgba(0,0,0,0.1)"/>
-          <text x="200" y="110" text-anchor="middle" font-family="sans-serif" font-size="7.5" fill="rgba(0,0,0,0.55)">Hari ini</text>
-          <!-- Incoming bubble 1 -->
-          <rect x="114" y="122" width="128" height="46" rx="10" fill="#fff"/>
-          <polygon points="114,122 104,128 114,134" fill="#fff"/>
-          <rect x="122" y="131" width="104" height="5" rx="2.5" fill="#ddd"/>
-          <rect x="122" y="141" width="82" height="5" rx="2.5" fill="#ddd"/>
-          <rect x="122" y="151" width="96" height="5" rx="2.5" fill="#ddd"/>
-          <text x="234" y="163" text-anchor="end" font-family="sans-serif" font-size="7" fill="#aaa">09:31 ✓✓</text>
-          <!-- Outgoing bubble -->
-          <rect x="148" y="178" width="118" height="36" rx="10" fill="#dcf8c6"/>
-          <polygon points="266,178 276,184 266,184" fill="#dcf8c6"/>
-          <rect x="157" y="187" width="90" height="5" rx="2.5" fill="#a8d490"/>
-          <rect x="157" y="197" width="68" height="5" rx="2.5" fill="#a8d490"/>
-          <text x="258" y="208" text-anchor="end" font-family="sans-serif" font-size="7" fill="#aaa">09:32 ✓✓</text>
-          <!-- Incoming insight card bubble -->
-          <rect x="114" y="224" width="152" height="76" rx="10" fill="#fff"/>
-          <polygon points="114,224 104,230 114,236" fill="#fff"/>
-          <rect x="114" y="224" width="152" height="26" rx="10" fill="#3a7010"/>
-          <rect x="114" y="238" width="152" height="12" fill="#3a7010"/>
-          <text x="190" y="240" text-anchor="middle" font-family="Sora,sans-serif" font-size="9" font-weight="700" fill="#fff">Insight Tumbuh</text>
-          <rect x="122" y="258" width="130" height="5" rx="2.5" fill="#e0e0e0"/>
-          <rect x="122" y="268" width="110" height="5" rx="2.5" fill="#e0e0e0"/>
-          <rect x="122" y="280" width="116" height="14" rx="5" fill="#d6f0b8"/>
-          <text x="180" y="291" text-anchor="middle" font-family="Sora,sans-serif" font-size="9" font-weight="700" fill="#3a7010">Omzet naik +38%</text>
-          <text x="258" y="295" text-anchor="end" font-family="sans-serif" font-size="7" fill="#aaa">09:33 ✓✓</text>
-          <!-- Bottom bar -->
-          <rect x="108" y="308" width="184" height="11" rx="0" fill="#f0f0f0"/>
-          <rect x="108" y="308" width="184" height="11" rx="20" fill="#f0f0f0"/>
-          <rect x="108" y="308" width="184" height="6" fill="#f0f0f0"/>
-        </svg>
-      </div>
-      <div class="hero-bubble2">
-        <div class="hero-bubble2-t">Rating Kepuasan</div>
-        <div class="hero-bubble2-n">⭐ 4.9/5</div>
+      
+      <div class="hero-right">
+        <!-- Floating Satisfaction Badge -->
+        <div class="wa-mockup-badge-satisfaction">
+          <div class="wa-satisfaction-title">Rating Kepuasan</div>
+          <div class="wa-satisfaction-val">⭐ 4.9 / 5</div>
+        </div>
+        
+        <!-- Premium Floating WA Mockup -->
+        <div class="wa-mockup">
+          <div class="wa-screen">
+            <!-- Header -->
+            <div class="wa-header">
+              <div class="wa-avatar">T</div>
+              <div class="wa-info">
+                <span class="wa-name">Tim Tumbuh</span>
+                <span class="wa-status"><span class="wa-status-dot"></span>online</span>
+              </div>
+            </div>
+            
+            <!-- Chat Room -->
+            <div class="wa-chat-body">
+              <!-- Msg 1 -->
+              <div class="wa-bubble incoming">
+                Halo Kak! 😊 Kami sudah baca kendala stok & promo frozen food-nya.
+                <span class="wa-time">09:31</span>
+              </div>
+              
+              <!-- Msg 2 -->
+              <div class="wa-bubble outgoing">
+                Wah, cepet juga ya. Apa solusinya kira-kira?
+                <span class="wa-time">09:32</span>
+              </div>
+              
+              <!-- Msg 3 (Insight Card) -->
+              <div class="wa-bubble insight">
+                <div class="wa-bubble-title">💡 Insight Tumbuh</div>
+                Untuk optimalkan margin, coba ganti model katering bundel. Kita sudah siapkan simulasi angkanya:
+                <span class="wa-badge">Potensi Omzet Naik +38%</span>
+                <span class="wa-time">09:33</span>
+              </div>
+              
+              <!-- Typing effect mock -->
+              <div class="wa-bubble incoming" style="animation-delay: 4.5s; padding: 6px 12px; width: 60px;">
+                <div class="typing-indicator">
+                  <div class="typing-dot"></div>
+                  <div class="typing-dot"></div>
+                  <div class="typing-dot"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Floating Users Badge -->
+        <div class="wa-mockup-badge-users">
+          <span class="wa-users-val">2.400+</span>
+          <span class="wa-users-lbl">UMKM Terbantu</span>
+        </div>
       </div>
     </div>
   </div>
@@ -328,75 +1804,82 @@ img { max-width: 100%; display: block; }
 
 <!-- ===================== TRUST BAR ===================== -->
 <div class="trust-bar">
-  <div class="trust-inner">
-    <span class="trust-label">Dipercaya pelaku UMKM dari</span>
-    <div class="trust-cities">
-      <span class="trust-city">Jakarta</span>
-      <span class="trust-city">Surabaya</span>
-      <span class="trust-city">Bandung</span>
-      <span class="trust-city">Medan</span>
-      <span class="trust-city">Makassar</span>
-      <span class="trust-city">Yogyakarta</span>
+  <div class="container">
+    <div class="trust-inner">
+      <span class="trust-label">Dipercaya pelaku UMKM dari</span>
+      <div class="trust-cities">
+        <span class="trust-city">Jakarta</span>
+        <span class="trust-city">Surabaya</span>
+        <span class="trust-city">Bandung</span>
+        <span class="trust-city">Medan</span>
+        <span class="trust-city">Makassar</span>
+        <span class="trust-city">Yogyakarta</span>
+      </div>
     </div>
   </div>
 </div>
 
-<!-- ===================== PAIN SECTION ===================== -->
+<!-- ===================== PAIN & SOLUTION ===================== -->
 <section class="pain-section">
   <div class="container">
     <div class="pain-grid">
-      <div>
-        <p class="eyebrow">Untuk siapa</p>
-        <h2 class="section-h">Kamu udah kerja keras.<br>Saatnya kerja <em>lebih cerdas.</em></h2>
-        <p class="section-sub">Puluhan juta UMKM Indonesia berjuang tanpa mentor, tanpa tim, tanpa data. Tumbuh hadir buat ngubah itu.</p>
+      <!-- Pain (Frustration) -->
+      <div class="pain-box frustration">
+        <p class="eyebrow" style="color: hsl(12, 75%, 50%); background: hsl(12, 75%, 96%);">Kondisi Saat Ini</p>
+        <h2 class="section-h">Kamu sudah kerja keras.<br>Saatnya kerja <em>lebih cerdas.</em></h2>
+        <p class="section-sub">Puluhan juta UMKM Indonesia berjuang tanpa mentor, tanpa tim, dan tanpa data yang jelas.</p>
+        
         <ul class="pain-list">
           <li class="pain-item">
             <div class="pain-icon">😓</div>
             <div>
               <div class="pain-title">Ngerjain semua sendiri</div>
-              <div class="pain-desc">Owner jadi admin, kasir, marketing, sekaligus kurir. Nggak sempet mikir strategi.</div>
+              <div class="pain-desc">Owner merangkap admin, kurir, kasir, sekaligus promosi. Tidak sempat memikirkan strategi jangka panjang.</div>
             </div>
           </li>
           <li class="pain-item">
             <div class="pain-icon">💸</div>
             <div>
               <div class="pain-title">Konsultan terlalu mahal</div>
-              <div class="pain-desc">Bayar jutaan, dapat saran generik yang nggak cocok sama kondisi usaha kecil.</div>
+              <div class="pain-desc">Biaya bulanan jutaan rupiah hanya untuk mendapat template teori generik yang tidak membumi.</div>
             </div>
           </li>
           <li class="pain-item">
             <div class="pain-icon">📉</div>
             <div>
               <div class="pain-title">Omzet stuck di angka yang sama</div>
-              <div class="pain-desc">Udah coba banyak cara, tapi nggak tau kenapa bisnis nggak mau tumbuh.</div>
+              <div class="pain-desc">Sudah coba banting harga dan gonta-ganti taktik iklan, tapi bisnis tetap jalan di tempat.</div>
             </div>
           </li>
         </ul>
       </div>
-      <div>
-        <p class="eyebrow">Solusi Tumbuh</p>
-        <h2 class="section-h">Satu platform,<br><em>semua yang kamu butuhkan.</em></h2>
-        <p class="section-sub">Tim Tumbuh memahami konteks UMKM lokal — dari warung makan di Surabaya sampai toko online di Bandung.</p>
+
+      <!-- Solution -->
+      <div class="pain-box solution">
+        <p class="eyebrow">Bersama Tumbuh</p>
+        <h2 class="section-h">Satu platform,<br><em>semua kebutuhan terjawab.</em></h2>
+        <p class="section-sub">Kami memahami realita bisnis lokal — dari warung kelontong di Solo hingga brand fashion di Bandung.</p>
+        
         <ul class="pain-list">
           <li class="pain-item">
-            <div class="pain-icon" style="background:#ddf0fc;border-color:#b0d8f0;">💬</div>
+            <div class="pain-icon">💬</div>
             <div>
               <div class="pain-title">Konsultasi kapan saja via WhatsApp</div>
-              <div class="pain-desc">Nggak perlu appointment, nggak perlu ke kantor. Chat langsung, dapat jawaban cepat.</div>
+              <div class="pain-desc">Nggak perlu appointment rumit. Cukup kirim pesan singkat saat senggang, dapat respons solusi cepat.</div>
             </div>
           </li>
           <li class="pain-item">
-            <div class="pain-icon" style="background:#fef3d0;border-color:#f9e090;">🧠</div>
+            <div class="pain-icon">🧠</div>
             <div>
-              <div class="pain-title">Tim yang ingat bisnis kamu</div>
-              <div class="pain-desc">Setiap sesi nyambung. Nggak perlu cerita ulang dari awal setiap kali ngobrol.</div>
+              <div class="pain-title">Tim yang ingat riwayat bisnis kamu</div>
+              <div class="pain-desc">Semua data tersimpan aman. Setiap sesi menyambung mulus, tak perlu mengulang cerita dari awal.</div>
             </div>
           </li>
           <li class="pain-item">
-            <div class="pain-icon" style="background:#fde8e0;border-color:#f9c4b0;">📊</div>
+            <div class="pain-icon">📊</div>
             <div>
-              <div class="pain-title">Saran spesifik, bukan template</div>
-              <div class="pain-desc">Rekomendasi disesuaikan sama jenis usaha, kondisi pasar, dan tujuan kamu.</div>
+              <div class="pain-title">Saran spesifik & aksi nyata</div>
+              <div class="pain-desc">Rekomendasi taktis yang disesuaikan persis dengan pasar lokal, jenis produk, dan kapasitas modal kamu.</div>
             </div>
           </li>
         </ul>
@@ -405,48 +1888,78 @@ img { max-width: 100%; display: block; }
   </div>
 </section>
 
-<!-- ===================== FEATURES / TIM ===================== -->
+<!-- ===================== FEATURES / SPECIALISTS ===================== -->
 <section class="feat-section">
   <div class="container">
     <div class="feat-header">
       <p class="eyebrow">Tim Spesialis</p>
-      <h2 class="section-h" style="text-align:center">Setiap bisnis punya <em>konsultan yang tepat.</em></h2>
+      <h2 class="section-h">Setiap bisnis punya <em>konsultan yang tepat.</em></h2>
+      <p class="section-sub">Dapatkan pendampingan langsung dari ahli yang memiliki jam terbang tinggi di bidang industri kamu.</p>
     </div>
+    
     <div class="feat-grid">
+      <!-- 1 -->
       <div class="feat-card">
-        <img class="feat-avatar" src="https://randomuser.me/api/portraits/women/44.jpg" alt="Rina">
-        <div class="feat-card-title">Rina — F&B Specialist</div>
-        <div class="feat-card-desc">Ahli kuliner, frozen food, katering & warung. Paham margin F&B, pricing, dan cara masuk marketplace makanan.</div>
+        <div class="feat-avatar-wrapper">
+          <img class="feat-avatar" src="https://randomuser.me/api/portraits/women/44.jpg" alt="Rina">
+          <span class="feat-badge">F&B</span>
+        </div>
+        <div class="feat-card-title">Rina</div>
+        <div class="feat-card-desc">Spesialis kuliner, catering, & frozen food. Ahli optimasi margin resep, standar HPP, dan pendaftaran e-commerce pangan.</div>
       </div>
+      <!-- 2 -->
       <div class="feat-card">
-        <img class="feat-avatar" src="https://randomuser.me/api/portraits/women/65.jpg" alt="Dinda">
-        <div class="feat-card-title">Dinda — Fashion & Craft</div>
-        <div class="feat-card-desc">Spesialis fashion lokal, handmade, dan produk kreatif. Dari branding sampai strategi Shopee & TikTok Shop.</div>
+        <div class="feat-avatar-wrapper">
+          <img class="feat-avatar" src="https://randomuser.me/api/portraits/women/65.jpg" alt="Dinda">
+          <span class="feat-badge">Fashion</span>
+        </div>
+        <div class="feat-card-title">Dinda</div>
+        <div class="feat-card-desc">Spesialis brand pakaian lokal & handmade. Jago merancang konsep branding visual hingga strategi kampanye di TikTok & Shopee.</div>
       </div>
+      <!-- 3 -->
       <div class="feat-card">
-        <img class="feat-avatar" src="https://randomuser.me/api/portraits/men/32.jpg" alt="Budi">
-        <div class="feat-card-title">Budi — Jasa & Servis</div>
-        <div class="feat-card-desc">Konsultan untuk salon, bengkel, laundry, les privat. Paham cara dapetin pelanggan tetap dan pricing jasa.</div>
+        <div class="feat-avatar-wrapper">
+          <img class="feat-avatar" src="https://randomuser.me/api/portraits/men/32.jpg" alt="Budi">
+          <span class="feat-badge">Jasa</span>
+        </div>
+        <div class="feat-card-title">Budi</div>
+        <div class="feat-card-desc">Pakar bisnis salon, bengkel, laundry, & jasa les. Fokus pada program loyalitas pelanggan dan strategi penetapan harga jasa.</div>
       </div>
+      <!-- 4 -->
       <div class="feat-card">
-        <img class="feat-avatar" src="https://randomuser.me/api/portraits/men/76.jpg" alt="Hendra">
-        <div class="feat-card-title">Hendra — Produk & Retail</div>
-        <div class="feat-card-desc">Spesialis produk fisik dan toko retail. Paham supply chain, manajemen stok, dan strategi reseller.</div>
+        <div class="feat-avatar-wrapper">
+          <img class="feat-avatar" src="https://randomuser.me/api/portraits/men/76.jpg" alt="Hendra">
+          <span class="feat-badge">Retail</span>
+        </div>
+        <div class="feat-card-title">Hendra</div>
+        <div class="feat-card-desc">Spesialis supply chain & stok produk fisik. Membantu pengelolaan gudang, alur supplier, serta skema reseller/dropshipper.</div>
       </div>
+      <!-- 5 -->
       <div class="feat-card">
-        <img class="feat-avatar" src="https://randomuser.me/api/portraits/women/71.jpg" alt="Rayla">
-        <div class="feat-card-title">Rayla — Perdagangan & Warung</div>
-        <div class="feat-card-desc">Ahli warung kelontong, toko sembako, dan retail kecil. Paham cara bersaing di era minimarket modern.</div>
+        <div class="feat-avatar-wrapper">
+          <img class="feat-avatar" src="https://randomuser.me/api/portraits/women/71.jpg" alt="Rayla">
+          <span class="feat-badge">Warung</span>
+        </div>
+        <div class="feat-card-title">Rayla</div>
+        <div class="feat-card-desc">Ahli ritel kelontong & grosir. Berfokus pada sistem kasir digital sederhana dan trik bersaing dengan jaringan minimarket modern.</div>
       </div>
+      <!-- 6 -->
       <div class="feat-card">
-        <img class="feat-avatar" src="https://randomuser.me/api/portraits/men/45.jpg" alt="Arif">
-        <div class="feat-card-title">Arif — Bisnis Unik & Niche</div>
-        <div class="feat-card-desc">Generalis untuk bisnis yang tidak biasa — ternak, rental, jasa kreatif, hobi jadi bisnis, dan lainnya.</div>
+        <div class="feat-avatar-wrapper">
+          <img class="feat-avatar" src="https://randomuser.me/api/portraits/men/45.jpg" alt="Arif">
+          <span class="feat-badge">Niche</span>
+        </div>
+        <div class="feat-card-title">Arif</div>
+        <div class="feat-card-desc">Generalis untuk bisnis unik — pertanian, rental, peternakan hobi, hingga agensi kreatif berskala mikro.</div>
       </div>
+      <!-- 7 -->
       <div class="feat-card">
-        <img class="feat-avatar" src="https://randomuser.me/api/portraits/women/19.jpg" alt="Kera">
-        <div class="feat-card-title">Kera — Bisnis Digital & Online</div>
-        <div class="feat-card-desc">Spesialis freelance, konten kreator, dropship, TikTok Shop affiliate & personal branding. Paham banget ekosistem digital dari nol.</div>
+        <div class="feat-avatar-wrapper">
+          <img class="feat-avatar" src="https://randomuser.me/api/portraits/women/19.jpg" alt="Kera">
+          <span class="feat-badge">Digital</span>
+        </div>
+        <div class="feat-card-title">Kera</div>
+        <div class="feat-card-desc">Spesialis konten kreator, afiliasi, dropship online, & personal branding. Menguasai algoritma media sosial dari nol.</div>
       </div>
     </div>
   </div>
@@ -457,22 +1970,22 @@ img { max-width: 100%; display: block; }
   <div class="container">
     <div class="banner-inner">
       <div>
-        <h2 class="banner-h">Lebih dari 2.400 UMKM sudah<br><em>merasakan perbedaannya.</em></h2>
-        <p class="banner-sub">Dari warung kecil sampai usaha yang sudah jalan bertahun-tahun — semua bisa tumbuh dengan pendampingan yang tepat.</p>
-        <button class="btn-primary" style="margin-top:1.5rem;background:#a8dc60;color:#1e3f08;" onclick="scrollToForm()">Gabung sekarang →</button>
+        <h2 class="banner-h">Lebih dari 2.400 UMKM telah<br><em>merasakan perubahannya.</em></h2>
+        <p class="banner-sub">Langkah kecil hari ini adalah awal dari kelipatan omzet kamu di masa mendatang.</p>
+        <button class="btn-primary" style="margin-top: 2rem; background: var(--accent-gold); color: var(--brand-forest);" onclick="scrollToForm()">Gabung Sekarang →</button>
       </div>
       <div class="banner-stats">
         <div class="banner-stat">
           <div class="banner-stat-num">4.9 / 5</div>
-          <div class="banner-stat-label">Rating rata-rata dari member aktif</div>
+          <div class="banner-stat-label">Rating Kepuasan<br>Member Aktif</div>
         </div>
         <div class="banner-stat">
-          <div class="banner-stat-num">38 kota</div>
-          <div class="banner-stat-label">Jangkauan di seluruh Indonesia</div>
+          <div class="banner-stat-num">38 Kota</div>
+          <div class="banner-stat-label">Jangkauan UMKM<br>seluruh Indonesia</div>
         </div>
         <div class="banner-stat">
-          <div class="banner-stat-num">Rp 79rb / bln</div>
-          <div class="banner-stat-label">Kurang dari harga makan siang seminggu</div>
+          <div class="banner-stat-num">Rp 79rb</div>
+          <div class="banner-stat-label">Biaya bulanan<br>(Lebih hemat dari kelas instan)</div>
         </div>
       </div>
     </div>
@@ -482,28 +1995,33 @@ img { max-width: 100%; display: block; }
 <!-- ===================== HOW IT WORKS ===================== -->
 <section class="how-section" id="how">
   <div class="container">
-    <p class="eyebrow">Cara Kerja</p>
-    <h2 class="section-h">Dari cerita ke solusi<br><em>dalam hitungan menit.</em></h2>
+    <p class="eyebrow">Alur Kerja</p>
+    <h2 class="section-h">Dari cerita sederhana menjadi<br><em>solusi nyata dalam hitungan menit.</em></h2>
+    
     <div class="how-steps">
+      <!-- 1 -->
       <div class="how-step">
         <div class="step-num">1</div>
-        <div class="step-title">Ceritain bisnis kamu</div>
-        <div class="step-desc">Isi form singkat — jenis usaha, tantangan terbesar, dan nomor WhatsApp kamu. Cuma 2 menit.</div>
+        <div class="step-title">Ceritakan Bisnis Kamu</div>
+        <div class="step-desc">Isi formulir singkat 2 menit tentang jenis usaha, tantangan, dan target omzet yang kamu tuju.</div>
       </div>
+      <!-- 2 -->
       <div class="how-step">
         <div class="step-num">2</div>
-        <div class="step-title">Tim menganalisis</div>
-        <div class="step-desc">Tim kami baca semua yang kamu ceritain dan susun analisis yang spesifik — bukan template generik.</div>
+        <div class="step-title">Tim Menganalisis</div>
+        <div class="step-desc">Konsultan spesialis kami meninjau riwayat serta memetakan kondisi industri nyata yang relevan.</div>
       </div>
+      <!-- 3 -->
       <div class="how-step">
         <div class="step-num">3</div>
-        <div class="step-title">Dapat insight di WA</div>
-        <div class="step-desc">Dalam 5 menit, kamu dapat pesan langsung ke WhatsApp berisi insight dan rekomendasi actionable.</div>
+        <div class="step-title">Terima Insight di WA</div>
+        <div class="step-desc">Kurang dari 5 menit, analisis mendalam dan poin solusi langsung mendarat di WhatsApp kamu.</div>
       </div>
+      <!-- 4 -->
       <div class="how-step">
         <div class="step-num">4</div>
-        <div class="step-title">Tumbuh bareng kami</div>
-        <div class="step-desc">Lanjut konsultasi kapan saja. Tim kami check-in rutin dan tracking progress bisnis kamu.</div>
+        <div class="step-title">Bertumbuh Bersama</div>
+        <div class="step-desc">Kami melakukan check-in berkala untuk mendampingi eksekusi taktik baru di tokomu.</div>
       </div>
     </div>
   </div>
@@ -512,32 +2030,89 @@ img { max-width: 100%; display: block; }
 <!-- ===================== TESTIMONIALS ===================== -->
 <section class="testi-section" id="testimoni">
   <div class="container">
-    <p class="eyebrow">Cerita Nyata</p>
-    <h2 class="section-h">Mereka sudah <em>merasakan manfaatnya.</em></h2>
+    <div style="text-align: center; margin-bottom: 3rem;">
+      <p class="eyebrow">Testimoni</p>
+      <h2 class="section-h">Mereka yang telah <em>bertumbuh nyata.</em></h2>
+    </div>
+    
     <div class="testi-grid">
+      <!-- 1 -->
       <div class="testi-card">
-        <div class="testi-stars">★★★★★</div>
-        <p class="testi-q">"Analisis dari Tim Tumbuh beneran ngena. Mereka tau persis di mana masalah pricing frozen food gue. Sekarang margin naik 40% dalam 2 bulan."</p>
+        <div>
+          <div class="testi-stars">★★★★★</div>
+          <p class="testi-q">"Rekomendasi pricing & kemasan frozen food dari Tim Tumbuh beneran mengubah cara saya jualan. Margin profit naik 40% cuma dalam tempo 2 bulan saja!"</p>
+        </div>
         <div class="testi-author">
           <img class="testi-av" src="https://randomuser.me/api/portraits/women/28.jpg" alt="Sari Rahayu">
-          <div><div class="testi-name">Sari Rahayu</div><div class="testi-biz">Frozen food, Surabaya</div></div>
+          <div>
+            <div class="testi-name">Sari Rahayu</div>
+            <div class="testi-biz">Frozen Food — Surabaya</div>
+          </div>
         </div>
       </div>
+      <!-- 2 -->
       <div class="testi-card">
-        <div class="testi-stars">★★★★★</div>
-        <p class="testi-q">"Tim Tumbuh paling ngerti kondisi UMKM kecil kayak gue. Nggak ngerasa diguruin, malah kayak ngobrol sama temen yang emang jago bisnis."</p>
+        <div>
+          <div class="testi-stars">★★★★★</div>
+          <p class="testi-q">"Paling senang karena konsultasinya tidak menggurui. Diskusi santai lewat WhatsApp kayak punya rekan bisnis yang paham luar-dalam soal operasional bengkel."</p>
+        </div>
         <div class="testi-author">
           <img class="testi-av" src="https://randomuser.me/api/portraits/men/15.jpg" alt="Ahmad Fauzi">
-          <div><div class="testi-name">Ahmad Fauzi</div><div class="testi-biz">Bengkel motor, Bandung</div></div>
+          <div>
+            <div class="testi-name">Ahmad Fauzi</div>
+            <div class="testi-biz">Bengkel Motor — Bandung</div>
+          </div>
         </div>
       </div>
+      <!-- 3 -->
       <div class="testi-card">
-        <div class="testi-stars">★★★★★</div>
-        <p class="testi-q">"Yang bikin gue stay adalah mereka inget semua detail bisnis gue. Konsultasinya selalu nyambung, kayak punya business partner beneran."</p>
+        <div>
+          <div class="testi-stars">★★★★★</div>
+          <p class="testi-q">"Mereka ingat semua riwayat percakapan minggu lalu. Check-in hari Senin yang konsisten sangat membantu kedisiplinan saya eksekusi program promo."</p>
+        </div>
         <div class="testi-author">
           <img class="testi-av" src="https://randomuser.me/api/portraits/women/55.jpg" alt="Dewi Wulandari">
-          <div><div class="testi-name">Dewi Wulandari</div><div class="testi-biz">Toko baju online, Jakarta</div></div>
+          <div>
+            <div class="testi-name">Dewi Wulandari</div>
+            <div class="testi-biz">Fashion Store — Jakarta</div>
+          </div>
         </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CERITA FOUNDER (EDITORIAL) ===================== -->
+<section class="founder-section" id="cerita">
+  <div class="founder-wrap">
+    <div class="founder-card">
+      <p class="founder-eyebrow">Dibalik Layar</p>
+      <h2 class="founder-h">Saya mendirikan Tumbuh karena melihat <em>perjuangan Ibu saya.</em></h2>
+      
+      <div class="founder-story">
+        <p>Ibu saya adalah pejuang UMKM sejati yang tak pernah lelah mencoba. Setiap ada kelas bisnis online, webinar pemasaran digital, atau workshop taktis di Facebook, beliau selalu menyisihkan uang belanja untuk ikut mendaftar. Mulai dari harga Rp 50.000 hingga Rp 100.000 — bagi beliau, uang sebesar itu bernilai sangat besar.</p>
+        
+        <p>Namun, setelah sesi Zoom satu jam itu berakhir, realitanya selalu berulang: beliau dimasukkan ke dalam grup WhatsApp massal yang perlahan sunyi dalam hitungan minggu. Mentornya menghilang, pertanyaan-pertanyaan praktis beliau tak pernah ada yang menjawab, dan ujung-ujungnya beliau harus kembali meraba-raba semuanya sendirian dari nol.</p>
+        
+        <p>Pengalaman terakhir yang paling membekas adalah ketika beliau membayar kelas afiliasi produk. Sepulang dari kelas, beliau dibekali satu buah tautan akun AI yang katanya "bisa melipatgandakan penjualan secara otomatis" — tapi tidak ada satu pun orang yang mendampingi dan mengajari cara mengoperasikannya. Akun canggih itu kini hanya tersimpan diam sebagai pajangan tak berguna di HP beliau.</p>
+        
+        <p>Saat menemani Ibu, saya menyadari ada ribuan mata bapak-bapak dan ibu-ibu lain di ruangan itu dengan pancaran harapan yang sama. Mereka semua punya etos kerja tinggi dan modal semangat yang besar. Namun yang mereka dapatkan hanyalah penjual "mimpi sukses instan", bukan mitra pendampingan yang sabar.</p>
+        
+        <div class="founder-pull">"Saya membangun Tumbuh agar cerita kegelisahan semacam itu tidak perlu terulang lagi di masa depan."</div>
+        
+        <p>Tumbuh bukan merupakan program seminar sekali bayar lalu ditinggal pergi. Kami bukan grup chat massal yang diabaikan. Kami juga bukan platform sistem rumit tanpa panduan.</p>
+        
+        <p>Kami memosisikan diri sebagai business partner nyata yang selalu siaga di dalam kontak WhatsApp Anda. Yang mengingat perkembangan toko Anda dari minggu ke minggu, bertanya secara ramah tentang kendala penjualan Anda setiap Senin pagi tanpa diminta, dengan biaya langganan yang jauh lebih terjangkau daripada sekali ikut seminar kilat.</p>
+        
+        <p>Karena perjuangan Anda untuk bertumbuh adalah sebuah ikhtiar mulia yang sangat berharga. Dan ikhtiar itu berhak dijaga oleh tim pendamping yang berkomitmen penuh di sisi Anda.</p>
+      </div>
+      
+      <div class="founder-sign">
+        <div class="founder-sign-left">
+          <div class="founder-sign-name">Founder Tumbuh</div>
+          <div class="founder-sign-note">Didedikasikan untuk Ibu, dan seluruh pejuang UMKM yang menolak menyerah.</div>
+        </div>
+        <div class="founder-signature">Tumbuh Bersama.</div>
       </div>
     </div>
   </div>
@@ -547,34 +2122,42 @@ img { max-width: 100%; display: block; }
 <section class="price-section" id="harga">
   <div class="container">
     <div class="price-header">
-      <p class="eyebrow">Harga</p>
-      <h2 class="section-h">Investasi terjangkau<br><em>untuk bisnis yang tumbuh.</em></h2>
+      <p class="eyebrow">Skema Harga</p>
+      <h2 class="section-h">Investasi terjangkau untuk<br><em>keberlanjutan usaha jangka panjang.</em></h2>
     </div>
+    
     <div class="price-cards">
+      <!-- Tier 1 -->
       <div class="price-card">
-        <div class="price-tier">Gratis</div>
-        <div class="price-amount">Rp 0</div>
-        <div class="price-period">7 hari pertama</div>
-        <ul class="price-feats">
-          <li>Analisis bisnis awal</li>
-          <li>Konsultasi via WhatsApp</li>
-          <li>1 rekomendasi spesifik</li>
-        </ul>
-        <button class="price-btn" onclick="scrollToForm()">Coba gratis</button>
+        <div>
+          <div class="price-tier">Masa Uji Coba</div>
+          <div class="price-amount">Rp 0</div>
+          <div class="price-period">7 Hari Pertama</div>
+          <ul class="price-feats">
+            <li>Analisis awal potensi bisnis</li>
+            <li>Konsultasi via WhatsApp</li>
+            <li>1 Rekomendasi solusi taktis</li>
+          </ul>
+        </div>
+        <button class="price-btn" onclick="scrollToForm()">Coba Gratis Sekarang</button>
       </div>
+      
+      <!-- Tier 2 -->
       <div class="price-card hot">
-        <div class="price-badge">Paling populer</div>
-        <div class="price-tier">Member</div>
-        <div class="price-amount">Rp 79.000</div>
-        <div class="price-period">per bulan · bisa cancel kapan saja</div>
-        <ul class="price-feats">
-          <li>Konsultasi unlimited</li>
-          <li>Weekly check-in dari tim</li>
-          <li>Memori bisnis tersimpan</li>
-          <li>Insight mingguan</li>
-          <li>Akses semua spesialis</li>
-        </ul>
-        <button class="price-btn solid" onclick="scrollToForm()">Mulai 7 hari gratis →</button>
+        <div class="price-badge">Paling Populer</div>
+        <div>
+          <div class="price-tier">Langganan Member</div>
+          <div class="price-amount">Rp 79.000</div>
+          <div class="price-period">Per bulan · Batalkan kapan pun</div>
+          <ul class="price-feats">
+            <li>Konsultasi tanpa batas (Unlimited)</li>
+            <li>Check-in rutin mingguan oleh tim</li>
+            <li>Database & riwayat bisnis tersimpan</li>
+            <li>Laporan insight taktis mingguan</li>
+            <li>Akses penuh ke seluruh tim spesialis</li>
+          </ul>
+        </div>
+        <button class="price-btn solid" onclick="scrollToForm()">Daftar 7 Hari Gratis →</button>
       </div>
     </div>
   </div>
@@ -585,18 +2168,29 @@ img { max-width: 100%; display: block; }
   <div class="container">
     <div class="form-inner">
       <div class="form-left">
-        <p class="eyebrow" style="color:#c8f080">Mulai Sekarang</p>
-        <h2 class="form-left-h">Yuk, <em>ceritain bisnis kamu.</em></h2>
-        <p class="form-left-sub">Gratis. Tanpa kartu kredit. Tim kami kirim analisis ke WhatsApp kamu dalam 5 menit.</p>
+        <p class="eyebrow" style="color: var(--accent-gold); background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.15)">Langkah Awal</p>
+        <h2 class="form-left-h">Mari, <em>ceritakan potensi bisnismu.</em></h2>
+        <p class="form-left-sub">Layanan uji coba 100% gratis tanpa jaminan kartu kredit. Tim kami akan mengirimkan hasil pemetaan awal ke nomor WhatsApp kamu dalam 5 menit.</p>
+        
         <div class="form-checklist">
-          <div class="form-check"><span class="form-check-icon">✓</span> Analisis spesifik, bukan template</div>
-          <div class="form-check"><span class="form-check-icon">✓</span> Langsung via WhatsApp yang kamu pakai</div>
-          <div class="form-check"><span class="form-check-icon">✓</span> Tim yang ngerti kondisi UMKM Indonesia</div>
+          <div class="form-check">
+            <span class="form-check-icon">✓</span>
+            <span>Analisis taktis spesifik, bukan salinan robot</span>
+          </div>
+          <div class="form-check">
+            <span class="form-check-icon">✓</span>
+            <span>Komunikasi personal langsung ke WhatsApp pribadi kamu</span>
+          </div>
+          <div class="form-check">
+            <span class="form-check-icon">✓</span>
+            <span>Didampingi oleh konsultan yang paham ekonomi lokal</span>
+          </div>
         </div>
       </div>
+      
       <div>
         <div class="form-card" id="form-card">
-          <!-- Form diisi oleh JS -->
+          <!-- Form diisi secara dinamis oleh JavaScript -->
         </div>
       </div>
     </div>
@@ -606,20 +2200,25 @@ img { max-width: 100%; display: block; }
 <!-- ===================== FOOTER ===================== -->
 <footer class="footer">
   <div class="footer-inner">
-    <div class="footer-logo">🌱 Tumbuh</div>
-    <div class="footer-copy">© 2025 Tumbuh. Konsultan bisnis untuk UMKM Indonesia.</div>
+    <div class="footer-logo">
+      <div class="nav-logo-icon" style="width: 28px; height: 28px;">
+        <svg viewBox="0 0 24 24" style="width: 14px; height: 14px;"><path d="M17 8C8 10 5.9 16.17 3.82 21.34L5.71 22l1-2.3A4.49 4.49 0 008 20C19 20 22 3 22 3c-1 2-8 2-8 2"/></svg>
+      </div>
+      Tumbuh
+    </div>
+    <div class="footer-copy">© 2026 Tumbuh. Rekan pendamping bisnis UMKM Indonesia. All rights reserved.</div>
   </div>
 </footer>
 
 <!-- ===================== JAVASCRIPT ===================== -->
 <script>
 // ============================================================
-// KONFIGURASI — GANTI INI SETELAH SETUP BACKEND
+// KONFIGURASI BACKEND (GOOGLE APPS SCRIPT URL)
 // ============================================================
 const APPS_SCRIPT_URL = "GANTI_DENGAN_URL_GOOGLE_APPS_SCRIPT_KAMU";
 
 // ============================================================
-// DATA FORM
+// STRUKTUR PERTANYAAN FORMULIR
 // ============================================================
 const QUESTIONS = [
   {
@@ -642,14 +2241,15 @@ const QUESTIONS = [
     q: "Nomor WhatsApp kamu?",
     type: "input",
     placeholder: "Contoh: 0812-3456-7890",
-    hint: "Analisis bisnis dikirim ke nomor ini dalam 5 menit."
+    hint: "Hasil analisis awal potensi bisnis akan langsung kami kirimkan secara gratis ke nomor ini dalam waktu 5 menit."
   }
 ];
 
 const LOADING_TEXTS = [
-  "Tim Tumbuh lagi baca cerita bisnis kamu...",
-  "Lagi nganalisis kondisi pasar yang relevan...",
-  "Hampir selesai — nyusun rekomendasi yang spesifik buat kamu...",
+  "Konsultan Tumbuh sedang meninjau cerita usahamu... 🌱",
+  "Memetakan data kompetitor & tren industri yang relevan...",
+  "Merumuskan 1 rekomendasi taktis (ini nyata, bukan template) 😊",
+  "Hampir selesai! Menghubungkan jalur notifikasi ke WhatsApp kamu...",
 ];
 
 let currentStep = 0;
@@ -659,7 +2259,7 @@ let lainnyaDesc = "";
 let tantanganDesc = "";
 
 // ============================================================
-// RENDER FORM
+// DYNAMIC FORM RENDERING WITH SLIDE TRANSITION
 // ============================================================
 function renderForm() {
   const card = document.getElementById("form-card");
@@ -686,14 +2286,15 @@ function renderForm() {
         oninput="waInput = this.value"
         onkeydown="if(event.key==='Enter') nextStep()"
       >
-      <div class="form-hint">${q.hint}</div>
+      <span class="form-hint">${q.hint}</span>
       <button class="form-btn-next" onclick="nextStep()">
-        Kirim analisis ke WA gue 📩
+        Kirim Analisis ke WhatsApp 📩
       </button>
     `;
   } else {
     const isKategoriLainnya  = currentStep === 0 && QUESTIONS[0].opts[answers[0]] === "Lainnya";
     const isTantanganLainnya = currentStep === 2 && QUESTIONS[2].opts[answers[2]] === "Lainnya";
+    
     bodyHtml = `
       <div class="form-opts">
         ${q.opts.map((opt, i) => `
@@ -706,55 +2307,58 @@ function renderForm() {
           </button>
         `).join("")}
       </div>
+      
       ${isKategoriLainnya ? `
         <input
           type="text"
           class="form-input"
           id="lainnya-input"
-          placeholder="Contoh: jual tanaman hias, jasa foto produk..."
+          placeholder="Tuliskan jenis jualan usahamu..."
           value="${lainnyaDesc}"
           oninput="lainnyaDesc = this.value"
           onkeydown="if(event.key==='Enter') nextStep()"
           style="margin-top:4px;"
         >
-        <div class="form-hint">Singkat aja — biar tim bisa kasih saran yang pas.</div>
+        <span class="form-hint">Contoh: Tanaman hias ekspor, jasa sewa studio foto keliling</span>
       ` : ""}
+      
       ${isTantanganLainnya ? `
         <input
           type="text"
           class="form-input"
           id="tantangan-input"
-          placeholder="Contoh: susah rekrut karyawan, stok sering kosong..."
+          placeholder="Tuliskan tantangan spesifik usahamu..."
           value="${tantanganDesc}"
           oninput="tantanganDesc = this.value"
           onkeydown="if(event.key==='Enter') nextStep()"
           style="margin-top:4px;"
         >
-        <div class="form-hint">Ceritain singkat — biar tim bisa fokus ke masalah yang beneran.</div>
+        <span class="form-hint">Contoh: Karyawan sering keluar-masuk, pasokan bahan baku tidak stabil</span>
       ` : ""}
-      <button
-        class="form-btn-next"
-        onclick="nextStep()"
-        ${answers[currentStep] === undefined ? "disabled" : ""}
-      >
-        Lanjut →
+      
+      <button class="form-btn-next" onclick="nextStep()" ${answers[currentStep] === undefined ? "disabled" : ""}>
+        Lanjut Langkah Berikutnya →
       </button>
     `;
   }
 
+  // Wrap inside step container to trigger keyframe transition
   card.innerHTML = `
-    <div class="form-step-label">Langkah ${currentStep + 1} dari ${QUESTIONS.length}</div>
-    <div class="form-progress">
-      <div class="form-progress-fill" style="width: ${progress}%"></div>
+    <div class="form-step-container">
+      <div class="form-progress">
+        <div class="form-progress-fill" style="width: ${progress}%;"></div>
+      </div>
+      <div class="form-step-label">Langkah ${currentStep + 1} dari ${QUESTIONS.length}</div>
+      <div class="form-question">${q.q}</div>
+      <div id="form-error" class="form-error"></div>
+      ${bodyHtml}
+      ${currentStep > 0
+        ? `<button class="form-btn-back" onclick="prevStep()">← Kembali ke pertanyaan sebelumnya</button>`
+        : ""}
     </div>
-    <div class="form-question">${q.q}</div>
-    <div id="form-error" class="form-error"></div>
-    ${bodyHtml}
-    ${currentStep > 0
-      ? `<button class="form-btn-back" onclick="prevStep()">← Kembali</button>`
-      : ""}
   `;
 
+  // Focus element helper
   if (q.type === "input") {
     document.getElementById("wa-input")?.focus();
   } else if (currentStep === 0 && QUESTIONS[0].opts[answers[0]] === "Lainnya") {
@@ -776,26 +2380,27 @@ function nextStep() {
     const el = document.getElementById("wa-input");
     if (el) waInput = el.value.trim();
     if (!waInput) {
-      showError("Nomor WhatsApp tidak boleh kosong ya.");
+      showError("Nomor WhatsApp tidak boleh dikosongkan ya Kak.");
       return;
     }
   } else {
     if (answers[currentStep] === undefined) return;
-    // Kalau pilih "Lainnya" di step 0, wajib isi deskripsi bisnis
+    
+    // Validasi input manual untuk pilihan "Lainnya"
     if (currentStep === 0 && QUESTIONS[0].opts[answers[0]] === "Lainnya") {
       const el = document.getElementById("lainnya-input");
       if (el) lainnyaDesc = el.value.trim();
       if (!lainnyaDesc) {
-        showError("Ceritain dikit usaha kamu ya 😊");
+        showError("Mohon tuliskan jenis jualan kamu secara singkat 😊");
         return;
       }
     }
-    // Kalau pilih "Lainnya" di step 2, wajib isi tantangan spesifik
+    
     if (currentStep === 2 && QUESTIONS[2].opts[answers[2]] === "Lainnya") {
       const el = document.getElementById("tantangan-input");
       if (el) tantanganDesc = el.value.trim();
       if (!tantanganDesc) {
-        showError("Ceritain dikit tantangan kamu ya 😊");
+        showError("Mohon tuliskan tantangan utama usahamu secara singkat 😊");
         return;
       }
     }
@@ -818,22 +2423,34 @@ function showError(msg) {
 }
 
 // ============================================================
-// LOADING STATE
+// PREMIUM SPROUT SEED LOADING STATE
 // ============================================================
 function showLoading() {
   const card = document.getElementById("form-card");
   let idx = 0;
+  
   card.innerHTML = `
     <div class="form-loading">
-      <div class="form-loading-spinner"></div>
+      <div class="sprout-container">
+        <div class="sprout-soil"></div>
+        <div class="sprout-seed"></div>
+        <div class="sprout-stem"></div>
+        <div class="sprout-leaf left"></div>
+        <div class="sprout-leaf right"></div>
+      </div>
       <div class="form-loading-texts" id="loading-text">${LOADING_TEXTS[0]}</div>
+      <div class="form-loading-sub">
+        Menghitung model kelayakan · analisis dikirim langsung ke WA 📱
+      </div>
     </div>
   `;
+  
   const interval = setInterval(() => {
     idx = (idx + 1) % LOADING_TEXTS.length;
     const el = document.getElementById("loading-text");
     if (el) el.textContent = LOADING_TEXTS[idx];
-  }, 1800);
+  }, 2200);
+  
   return interval;
 }
 
@@ -844,17 +2461,17 @@ function showSuccess() {
   document.getElementById("form-card").innerHTML = `
     <div class="form-success">
       <div class="form-success-icon">🌱</div>
-      <div class="form-success-h">Makasih! Tim Tumbuh lagi analisis bisnis kamu.</div>
+      <h3 class="form-success-h">Data terkirim! Tim Tumbuh segera menganalisis usahamu.</h3>
       <p class="form-success-p">
-        Tunggu ya — kami kirim insight langsung ke WhatsApp kamu<br>
-        dalam <strong>5 menit</strong>. Pastikan HP kamu aktif!
+        Rekomendasi taktis awal akan segera mendarat di nomor WhatsApp kamu 
+        dalam waktu kurang dari <strong>5 menit</strong>. Pastikan handphone kamu selalu aktif ya!
       </p>
     </div>
   `;
 }
 
 // ============================================================
-// SUBMIT KE BACKEND
+// DATA SUBMISSION TO BACKEND
 // ============================================================
 async function submitForm() {
   const loadingInterval = showLoading();
@@ -868,7 +2485,7 @@ async function submitForm() {
 
   const payload = {
     kategori:   opsiLabel[0],
-    deskripsi:  lainnyaDesc,   // diisi kalau user pilih "Lainnya" di kategori
+    deskripsi:  lainnyaDesc,
     lama_usaha: opsiLabel[1],
     tantangan:  opsiLabel[2] === "Lainnya" ? tantanganDesc : opsiLabel[2],
     omzet:      opsiLabel[3],
@@ -876,11 +2493,17 @@ async function submitForm() {
     timestamp:  new Date().toISOString(),
   };
 
-  clearInterval(loadingInterval);
+  // Matikan interval loading setelah proses selesai
+  const cleanAndResolve = () => {
+    clearInterval(loadingInterval);
+  };
 
-  // Kalau URL belum diset, langsung tampil sukses (mode demo)
-  if (APPS_SCRIPT_URL === "GANTI_DENGAN_URL_GOOGLE_APPS_SCRIPT_KAMU") {
-    setTimeout(showSuccess, 1500);
+  // Demo submission fallback
+  if (APPS_SCRIPT_URL === "GANTI_DENGAN_URL_GOOGLE_APPS_SCRIPT_KAMU" || APPS_SCRIPT_URL === "") {
+    setTimeout(() => {
+      cleanAndResolve();
+      showSuccess();
+    }, 4000);
     return;
   }
 
@@ -891,31 +2514,32 @@ async function submitForm() {
       body: JSON.stringify(payload),
     });
     const data = await res.json();
+    cleanAndResolve();
     if (data.status === "ok") {
       showSuccess();
     } else {
-      showFormError("Ada masalah, coba lagi ya.");
+      showFormError("Ada sedikit gangguan server saat mengirim data. Coba beberapa saat lagi ya.");
     }
   } catch (err) {
-    console.error(err);
-    // Kalau gagal karena CORS Apps Script (normal), tetap tampil sukses
-    // karena data biasanya tetap masuk ke Sheets
+    console.error("Submission failed:", err);
+    cleanAndResolve();
+    // Google Apps Script CORS exception workaround (often saves data anyway)
     showSuccess();
   }
 }
 
 function showFormError(msg) {
   document.getElementById("form-card").innerHTML = `
-    <div style="text-align:center;padding:2rem 1rem;">
-      <div style="font-size:36px;margin-bottom:1rem;">😔</div>
-      <p style="font-size:14px;color:#5a6e48;">${msg}</p>
-      <button class="form-btn-next" style="margin-top:1rem;" onclick="location.reload()">Coba lagi</button>
+    <div style="text-align:center;padding:3rem 1rem;">
+      <div style="font-size:48px;margin-bottom:1.5rem;">😔</div>
+      <p style="font-size:15px;color:var(--ink-muted);line-height:1.6;margin-bottom:1.5rem;">${msg}</p>
+      <button class="form-btn-next" onclick="location.reload()">Ulangi Dari Awal</button>
     </div>
   `;
 }
 
 // ============================================================
-// UTILITIES
+// UTILITIES & NORMALIZATIONS
 // ============================================================
 function normalizeWA(nomor) {
   const clean = nomor.replace(/[\s\-().+]/g, "");
@@ -929,7 +2553,7 @@ function scrollToForm() {
 }
 
 // ============================================================
-// INIT
+// INITIALIZATION
 // ============================================================
 document.addEventListener("DOMContentLoaded", renderForm);
 </script>
